@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -21,4 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('products', ProductController::class);
+Route::apiResource('carts', CartController::class);
+
 Route::get('products/title/{title}', [ProductController::class, 'showByName']);
+
+Route::delete('/users/{id}/cart', [CartController::class, 'destroyAllCartItems']);
+Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);
