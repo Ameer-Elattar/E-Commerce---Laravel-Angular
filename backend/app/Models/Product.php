@@ -17,6 +17,13 @@ class Product extends Model
         'stock', 
     ];
 
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return url('images/products/' . $this->image);
+    }
+
     function cart(){
         return $this->hasMany(Cart::class);
     }
