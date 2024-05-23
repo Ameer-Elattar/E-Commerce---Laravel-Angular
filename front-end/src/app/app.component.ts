@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CarouselComponent } from './homePage/carousel/carousel.component';
-import { NavbarComponent } from './homePage/navbar/navbar.component';
-import { FooterComponent } from './homePage/footer/footer.component';
-import { ContentComponent } from './homePage/content/content.component';
+import { NavbarComponent } from './layouts/navbar/navbar.component';
+import { FooterComponent } from './layouts/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet ,CarouselComponent , NavbarComponent ,FooterComponent,ContentComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'front-end';

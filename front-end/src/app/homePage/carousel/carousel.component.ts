@@ -17,6 +17,6 @@ export class CarouselComponent {
     { src: '../../../assets/images/floor-lamp.png', alt: 'Armchair' },
     { src: '../../../assets/images/furniture.png', alt: 'Armchair' },
     { src: '../../../assets/images/furniture (1).png', alt: 'Armchair' }
-   
+  
   ];
 }
