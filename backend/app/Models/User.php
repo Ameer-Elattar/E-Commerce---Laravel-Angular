@@ -18,10 +18,21 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'full_name',
         'email',
         'password',
+        'gender',
+        'image'
     ];
+
+
+
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return url('images/users/' . $this->image);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +52,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    function cart(){
+        return $this->hasMany(Cart::class);
+    }
 }
