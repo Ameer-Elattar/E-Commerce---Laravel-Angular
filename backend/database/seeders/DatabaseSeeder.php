@@ -25,15 +25,30 @@ class DatabaseSeeder extends Seeder
         ]);
 
         
-       Product::factory(10)->create();
+    Product::factory(10)->create();
 
     Product::create([
-    'title' => 'ppp',
+    'title' => 'Chair',
     'description' => 'Good for buy',
     'price' => 19.99, 
-    'image' => 'image.jpg', 
+    'image' => 'product-3.png', 
     'stock' => 0, 
-]);
+],[
+    'title' => 'Table',
+    'description' => 'Good for buy',
+    'price' => 19.99, 
+    'image' => 'product-4.png', 
+    'stock' => 0, 
+],
+[
+    'title' => 'bed',
+    'description' => 'Good for buy',
+    'price' => 19.99, 
+    'image' => 'product-5.png', 
+    'stock' => 0, 
+],
+
+);
 
 
     }

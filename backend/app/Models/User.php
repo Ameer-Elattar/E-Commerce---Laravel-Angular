@@ -31,7 +31,7 @@ class User extends Authenticatable
 
     public function getImageUrlAttribute()
     {
-        return url('images/users/' . $this->image);
+        return './assets/uploads/users/' . $this->image;
     }
 
     /**

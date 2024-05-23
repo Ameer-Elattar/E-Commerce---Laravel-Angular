@@ -11,12 +11,12 @@ import { CarouselModule } from 'primeng/carousel';
 })
 export class CarouselComponent {
   images: any[] = [
-    { src: '../../../assets/images/armchair.png', alt: 'Armchair' },
-    { src: '../../../assets/images/bed.png', alt: 'Armchair' },
-    { src: '../../../assets/images/couch.png', alt: 'Armchair' },
-    { src: '../../../assets/images/floor-lamp.png', alt: 'Armchair' },
-    { src: '../../../assets/images/furniture.png', alt: 'Armchair' },
-    { src: '../../../assets/images/furniture (1).png', alt: 'Armchair' }
+    { src: './assets/images/armchair.png', alt: 'Armchair' },
+    { src: './assets/images/bed.png', alt: 'Armchair' },
+    { src: './assets/images/couch.png', alt: 'Armchair' },
+    { src: './assets/images/floor-lamp.png', alt: 'Armchair' },
+    { src: './assets/images/furniture.png', alt: 'Armchair' },
+    { src: './assets/images/furniture (1).png', alt: 'Armchair' }
   
   ];
 }

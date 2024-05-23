@@ -16,14 +16,14 @@ export class ContentComponent {
 
   getPanelBackground(panel: number): string {
     const images = [
-      '../../../assets/images/hp-1-ig-4.jpg',
-      '../../../assets/images/hp-1-ig-5.jpg',
-      '../../../assets/images/hp-1-ig-1.jpg',
-      '../../../assets/images/4.jpg',
-      '../../../assets/images/project-3.jpg',
-      '../../../assets/images/hp-1-ig-2.jpg',
-      '../../../assets/images/news-10.jpg',
-      '../../../assets/images/project-1.jpg',
+      './assets/images/hp-1-ig-4.jpg',
+      './assets/images/hp-1-ig-5.jpg',
+      './assets/images/hp-1-ig-1.jpg',
+      './assets/images/4.jpg',
+      './assets/images/project-3.jpg',
+      './assets/images/hp-1-ig-2.jpg',
+      './assets/images/news-10.jpg',
+      './assets/images/project-1.jpg',
     ];
     return `url(${images[panel - 1]})`;
   }

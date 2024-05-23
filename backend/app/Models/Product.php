@@ -21,8 +21,9 @@ class Product extends Model
 
     public function getImageUrlAttribute()
     {
-        return url('images/products/' . $this->image);
+        return './assets/uploads/products/' . $this->image;
     }
+
 
     function cart(){
         return $this->hasMany(Cart::class);
