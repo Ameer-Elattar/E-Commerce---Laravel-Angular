@@ -81,7 +81,12 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $Order = Order::find($id);
+        if(!$Order){
+            return response()->json(['message'=> 'Order not found'],404);
+        }
+        $Order ->update($request->all());
+        return response()->json($Order,200);
     }
 
     /**
@@ -89,6 +94,11 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $Order = Order::find($id);
+        if(!$Order){
+            return response()->json(['message'=> 'Order not found'],404);
+        }
+        $Order->delete();
+        return response()->json(['message'=> 'Order deleted'],200);
     }
 }
