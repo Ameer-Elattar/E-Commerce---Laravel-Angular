@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth; // Import the JWTAuth facade
@@ -25,11 +26,30 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    // public function login()
+    // {
+    //     $credentials = request(['email', 'password']);
+    //     if (! $token = auth()->attempt($credentials)) {
+    //         return response()->json(['error' => 'Unauthorized'], 401);
+    //     }
+
+    //     return $this->respondWithToken($token);
+    // }
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $credentials = $request->only('email', 'password');
+
+        // Determine the type of user attempting to log in
+        $isAdmin = Admin::where('email', $credentials['email'])->exists();
+
+        if ($isAdmin) {
+            if (!$token = Auth::guard('api-admins')->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        } else {
+            if (!$token = Auth::guard('api')->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
         }
 
         return $this->respondWithToken($token);
@@ -80,6 +100,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
+            'user' => auth()->user()
         ]);
     }
 }

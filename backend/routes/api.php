@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
@@ -21,7 +22,6 @@ use App\Http\Controllers\AuthController;
 
 Route::group([
 
-    'middleware' => 'api',
     'prefix' => 'auth'
 
 ], function ($router) {
@@ -36,7 +36,9 @@ Route::group([
 Route::group(['middleware' => 'auth'], function () {
     Route::apiResource('users', UserController::class);
 });
-Route::apiResource('products', ProductController::class);
+
+
+Route::apiResource('products', ProductController::class)->middleware("auth");
 Route::apiResource('carts', CartController::class);
 
 Route::get('products/title/{title}', [ProductController::class, 'showByName']);
