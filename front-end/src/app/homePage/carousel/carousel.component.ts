@@ -1,22 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { CarouselModule } from 'primeng/carousel';
+import { Component, Input } from '@angular/core';
+import { MiniCarouselComponent } from "../mini-carousel/mini-carousel.component";
+
 
 @Component({
-  selector: 'app-carousel',
-  standalone: true,
-  imports: [ CarouselModule,CommonModule],
-  templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.css'
+    selector: 'app-carousel',
+    standalone: true,
+    templateUrl: './carousel.component.html',
+    styleUrl: './carousel.component.css',
+    imports: [CommonModule, MiniCarouselComponent]
 })
 export class CarouselComponent {
-  images: any[] = [
-    { src: './assets/images/armchair.png', alt: 'Armchair' },
-    { src: './assets/images/bed.png', alt: 'Armchair' },
-    { src: './assets/images/couch.png', alt: 'Armchair' },
-    { src: './assets/images/floor-lamp.png', alt: 'Armchair' },
-    { src: './assets/images/furniture.png', alt: 'Armchair' },
-    { src: './assets/images/furniture (1).png', alt: 'Armchair' }
-  
-  ];
+
+  @Input() images2: { src: string,height:string, alt: string }[] = [];
+
+
 }

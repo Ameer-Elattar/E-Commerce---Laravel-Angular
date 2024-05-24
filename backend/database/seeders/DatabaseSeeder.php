@@ -32,20 +32,20 @@ class DatabaseSeeder extends Seeder
     'description' => 'Good for buy',
     'price' => 19.99, 
     'image' => 'product-3.png', 
-    'stock' => 0, 
+    'stock' => 2, 
 ],[
     'title' => 'Table',
     'description' => 'Good for buy',
     'price' => 19.99, 
     'image' => 'product-4.png', 
-    'stock' => 0, 
+    'stock' => 3, 
 ],
 [
     'title' => 'bed',
     'description' => 'Good for buy',
     'price' => 19.99, 
     'image' => 'product-5.png', 
-    'stock' => 0, 
+    'stock' => 4, 
 ],
 
 );
