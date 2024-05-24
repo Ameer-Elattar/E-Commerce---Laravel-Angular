@@ -1,10 +1,11 @@
-<div class="container-fluid my-5">
+<div class="container">
   <div class="row my-5">
-    <h1 class="col-12 display-3 text-secondary text-center">Explore our collection of carefully</h1>
+    <h1 class="col-12 display-3 text-light text-center">Explore our collection of carefully</h1>
   </div>
 
+ 
   <div class="row my-5">
-    <div class="col-lg-3 col-md-6 mb-4" *ngFor="let product of products">
+    <div class="col-lg-3 col-md-6 mb-4" *ngFor="let product of pagedProducts">
       <div class="card h-100 position-relative">
         <img [src]="product.image_url" class="card-img-top" alt="{{ product.title }}">
 
@@ -17,7 +18,6 @@
           </div>
         </div>
 
-      
         <div class="overlay">
           <a [routerLink]="[]" class="icon-link">
             <fa-icon [icon]="faEye" class="icon p-5"></fa-icon>
@@ -29,5 +29,13 @@
       </div>
     </div>
   </div>
-</div>
 
+  <div class="container-fluid my-5">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <button class="btn btn-secondary btn-fixed-size mr-2" (click)="prevPage()">Previous</button>
+        <button class="btn btn-secondary btn-fixed-size" (click)="nextPage()">Next</button>
+      </div>
+    </div>
+  </div>
+  
