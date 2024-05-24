@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -57,3 +58,5 @@ Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);
 
 Route::apiResource('orders', OrderController::class);
 // Route::get('/orders', [OrderController::class, 'index']);
+
+Route::apiResource('admins', AdminController::class);
