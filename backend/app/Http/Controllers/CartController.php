@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
+use App\Http\Requests\DeleteCartRequest;
 use App\Http\Resources\CartResource;
+ 
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -62,10 +65,16 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart)
+    public function destroy(Cart $cart,DeleteCartRequest $request)
     {
+        // prevent a user from deleting items belonging to other users using request body
+        $requestUserId=$request['user_id'];
+        if ($cart->user_id !== $requestUserId) {
+            return response()->json(['error' => 'You are not authorized to delete this cart.'], 403);
+        }
+        
          $cart->delete();
-         return response()->json(null, 204);
+         return response()->json(['message' =>'Done'], 204);
     }
     public function destroyAllCartItems(int $id)
     {
