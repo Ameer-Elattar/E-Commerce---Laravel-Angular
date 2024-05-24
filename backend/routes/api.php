@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,23 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-    
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('logout', [AuthController::class,'logout']);
+    Route::post('refresh', [AuthController::class,'refresh']);
+    Route::post('me', [AuthController::class,'me']);
+
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::apiResource('users', UserController::class);
+});
 Route::apiResource('products', ProductController::class);
 Route::apiResource('carts', CartController::class);
 
@@ -35,7 +48,6 @@ Route::delete('/users/{id}/cart', [CartController::class, 'destroyAllCartItems']
 Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);
 
 
-Route::apiResource('users', UserController::class);
 
 Route::delete('/users/{id}/cart', [CartController::class, 'destroyAllCartItems']);
 Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);

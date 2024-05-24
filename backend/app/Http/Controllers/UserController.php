@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,9 +28,10 @@ class UserController extends Controller
     {
         $image=$request->file("image");
         $imageName=time().'_'.$image->getClientOriginalName();
+        $hashedPassword=Hash::make($request->password);
         $user=User::create([
             "full_name"=>$request->full_name,
-            "password"=>$request->password,
+            "password"=>$hashedPassword,
             "email"=>$request->email,
             "gender"=>$request->gender,
             "image"=>$imageName
