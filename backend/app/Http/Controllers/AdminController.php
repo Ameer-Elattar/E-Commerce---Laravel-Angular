@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Authenticatable implements JWTSubject
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
