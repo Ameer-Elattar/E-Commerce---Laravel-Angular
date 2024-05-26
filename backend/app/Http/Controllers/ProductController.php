@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
+    
      
     public function index() {
         $products = Product::where('stock', '>', 0)->get();
@@ -25,6 +26,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move("images/products",$imageName);
         }
     
         $product = Product::create([
@@ -81,6 +83,12 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+            if ($product->image) {
+                Storage::delete('images/products/' . $product->image);
+            }
+
+            $image->move("images/products",$imageName);
         
         }
     

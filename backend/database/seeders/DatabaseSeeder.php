@@ -27,28 +27,7 @@ class DatabaseSeeder extends Seeder
 
     Product::factory(10)->create();
 
-    Product::create([
-    'title' => 'Chair',
-    'description' => 'Good for buy',
-    'price' => 19.99,
-    'image' => 'product-3.png',
-    'stock' => 2,
-],[
-    'title' => 'Table',
-    'description' => 'Good for buy',
-    'price' => 19.99,
-    'image' => 'product-4.png',
-    'stock' => 3,
-],
-[
-    'title' => 'bed',
-    'description' => 'Good for buy',
-    'price' => 19.99,
-    'image' => 'product-5.png',
-    'stock' => 4,
-],
-
-);
+   
 
 $this->call(AdminSeeder::class);
     }
