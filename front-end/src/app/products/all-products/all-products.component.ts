@@ -7,13 +7,14 @@ import { Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { SpinnerComponent } from "../../layouts/spinner/spinner.component";
 
 @Component({
-  selector: 'app-all-products',
-  templateUrl: './all-products.component.html',
-  standalone:true,
-  imports:[FormsModule,CommonModule,RouterLink,FontAwesomeModule],
-  styleUrls: ['./all-products.component.css']
+    selector: 'app-all-products',
+    templateUrl: './all-products.component.html',
+    standalone: true,
+    styleUrls: ['./all-products.component.css'],
+    imports: [FormsModule, CommonModule, RouterLink, FontAwesomeModule, SpinnerComponent]
 })
 
 export class AllProductsComponent implements OnInit, OnDestroy {
@@ -23,6 +24,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   pageSize = 16; 
   faEye = faEye;
   faCartPlus = faCartPlus;
+  isLoading = true;
   private productsSubscription: Subscription | undefined;
 
   constructor(private productService: ProductService) {}
@@ -36,6 +38,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     this.productsSubscription = this.productService.getProducts().subscribe(products => {
       this.products = products;
       this.setPage(1);
+      this.isLoading = false;
     });
   }
 
