@@ -20,6 +20,7 @@ class ProductController extends Controller
    
     public function store(StoreProductRequest $request)
     {
+        $this->authorize('create', Product::class);
         $imageName = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -74,15 +75,16 @@ class ProductController extends Controller
             return response()->json(['error' => 'Product not found'], 404);
         }
     
+        $this->authorize('update',$product);
         
         $imageName = $product->image;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-           
+        
         }
     
-       
+    
         $productData = [
             'title' => $request->input('title', $product->title),
             'description' => $request->input('description', $product->description),
@@ -91,12 +93,11 @@ class ProductController extends Controller
             'stock' => $request->input('stock', $product->stock)
         ];
     
-      
         $product->update($productData);
     
-        return response()->json($product, 200);
+        return response()->json(['message'=>'product updated','data'=>$product], 200);
     }
-   
+
 
     
 
@@ -106,7 +107,7 @@ class ProductController extends Controller
         if (!$product) {
             return response()->json(['error' => 'Product not found'], 404);
         }
-
+        $this->authorize('delete',$product);
         $product->delete();
 
         return response()->json(['message' => 'Deleted'], 200);

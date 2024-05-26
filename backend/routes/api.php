@@ -34,24 +34,26 @@ Route::group([
 
 });
 
-// route with no authentication
-Route::post('users',[UserController::class,'store']);
+// route with no authentication 
+Route::post('users',[UserController::class,'store']); // register user
+
+
 
 Route::group(['middleware' => 'multi.auth:api,api-admins'], function () {
     Route::apiResource('users', UserController::class)->except(['store']);
+    Route::apiResource('products', ProductController::class);
+    Route::get('products/title/{title}', [ProductController::class, 'showByName']);
+
 });
 
 
-Route::apiResource('products', ProductController::class)->middleware("auth");
 Route::apiResource('carts', CartController::class);
 
-Route::get('products/title/{title}', [ProductController::class, 'showByName']);
 
 
 
 
-Route::delete('/users/{id}/cart', [CartController::class, 'destroyAllCartItems']);
-Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);
+
 
 
 
