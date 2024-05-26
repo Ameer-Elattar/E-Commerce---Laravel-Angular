@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CarouselComponent } from "../../homePage/carousel/carousel.component";
 import { SpinnerComponent } from "../../layouts/spinner/spinner.component";
+import { NoResultComponent } from "../../layouts/no-result/no-result.component";
 
 
 @Component({
@@ -14,7 +15,7 @@ import { SpinnerComponent } from "../../layouts/spinner/spinner.component";
     standalone: true,
     templateUrl: './products-search.component.html',
     styleUrl: './products-search.component.css',
-    imports: [FormsModule, CommonModule, CarouselComponent, SpinnerComponent]
+    imports: [FormsModule, CommonModule, CarouselComponent, SpinnerComponent, NoResultComponent]
 })
 
 
