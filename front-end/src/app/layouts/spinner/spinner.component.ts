@@ -9,7 +9,6 @@ import { Component, Input} from '@angular/core';
 })
 
 export class SpinnerComponent {
-  
-  @Input() isLoading: boolean = false;
+
 
 }
