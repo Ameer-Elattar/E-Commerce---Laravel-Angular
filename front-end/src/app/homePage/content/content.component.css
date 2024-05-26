@@ -103,14 +103,31 @@ h1{
 
 
   
+.col-4 {
+    position: relative;
+    overflow: hidden; 
+}
+
+.col-4 img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    transition: transform 0.3s ease-in-out; 
+}
+
+.col-4:hover img {
+    transform: scale(1.05); 
+    border-radius: 30px;
+   
+}
+
 .overlay3 {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
-    width: 100%; 
-    height: 100%; 
-    box-sizing: border-box; 
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     opacity: 0;
@@ -121,19 +138,10 @@ h1{
     padding: 10px;
 }
 
-.col-4 {
-    position: relative; 
-}
-
-.col-4 img {
-    width: 100%; 
-    height: auto; 
-    border-radius: 20px;
-}
-
 .col-4:hover .overlay3 {
     opacity: 1;
 }
+
 
 
 .image-container {
@@ -174,6 +182,7 @@ h1{
     z-index: 1; 
     border: 3px rgb(78, 75, 75) solid ;
 }
+
 
 
 

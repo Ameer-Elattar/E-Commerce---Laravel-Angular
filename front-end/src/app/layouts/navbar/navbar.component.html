@@ -6,15 +6,22 @@
       </a>
       
    
-      <form class="d-flex mx-auto ms-5">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex mx-auto ms-5" (ngSubmit)="onSearch()">
+        <input 
+          class="form-control me-2" 
+          type="search" 
+          placeholder="Search" 
+          [(ngModel)]="searchQuery" 
+          name="searchQuery"
+          required
+          />
         <button 
-        [ngClass]="isNavbarTransparent ? 'btn btn-outline-secondary text-dark' : 'btn btn-outline-light text-light'"
-        type="submit">
-        Search
-      </button>
-      
+          [ngClass]="isNavbarTransparent ? 'btn btn-outline-secondary text-dark' : 'btn btn-outline-light text-light'"
+          type="submit">
+          Search
+        </button>
       </form>
+      
       
      
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -23,7 +30,7 @@
             <a class="nav-link" [ngClass]="{ 'text-light': !isNavbarTransparent}" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [ngClass]="{ 'text-light': !isNavbarTransparent}" [routerLink]="['/product']">Furnitures</a>
+            <a class="nav-link" [ngClass]="{ 'text-light': !isNavbarTransparent}" [routerLink]="['/products']">Furniture</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [ngClass]="{ 'text-light': !isNavbarTransparent}" href="#">Contact</a>

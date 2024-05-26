@@ -2,14 +2,17 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../../layouts/navbar/navbar.component";
 import { CarouselComponent } from "../../homePage/carousel/carousel.component";
 import { AllProductsComponent } from "../all-products/all-products.component";
+import { RouterOutlet } from '@angular/router';
+
 
 @Component({
     selector: 'app-products-view',
     standalone: true,
     templateUrl: './products-view.component.html',
     styleUrl: './products-view.component.css',
-    imports: [NavbarComponent, CarouselComponent, AllProductsComponent]
+    imports: [NavbarComponent, CarouselComponent, AllProductsComponent,RouterOutlet]
 })
+
 export class ProductsViewComponent {
     carouselImages = [
         { src: './assets/images/helo.jpg',height:'93vh', alt: 'Image 1' },

@@ -1,0 +1,23 @@
+<ng-container *loading="isLoading">
+    <app-spinner></app-spinner>
+  </ng-container>
+  
+  
+  <div class="container-fluid my-5" *ngIf="!isLoading">
+    <div *ngIf="product" class="row">
+      <div class="col-md-6 image-content my-5">
+        <div class="image-container">
+          <img [src]="product.image_url" class="img-fluid" alt="{{ product.title }}">
+          <div class="overlay"></div>
+        </div>
+      </div>
+      <div class="col-md-6 text-content my-5">
+        <div class="text-container">
+          <h1 class="display-4 gray-text text-center text-light">{{ product.title }}</h1>
+          <p class="text-light my-5"><strong>Description:</strong> {{ product.description }}</p>
+          <p class="text-light"><strong>Price:</strong> {{ product.price | currency }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
