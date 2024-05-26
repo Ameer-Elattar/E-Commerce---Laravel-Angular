@@ -20,6 +20,7 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+// authentication route with JWT 
 Route::group([
 
     'prefix' => 'auth'
@@ -33,8 +34,11 @@ Route::group([
 
 });
 
+// route with no authentication
+Route::post('users',[UserController::class,'store']);
+
 Route::group(['middleware' => 'multi.auth:api,api-admins'], function () {
-    Route::apiResource('users', UserController::class);
+    Route::apiResource('users', UserController::class)->except(['store']);
 });
 
 

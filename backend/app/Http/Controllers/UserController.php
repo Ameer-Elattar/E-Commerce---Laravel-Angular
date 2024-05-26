@@ -13,16 +13,19 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-
+    private $loggedUser;
+    public function __construct(){
+        $this->loggedUser = Auth::guard('api-admins')->user() ?? Auth::guard('api')->user();
+    }
     /**
      * Display a listing of the resource.
      */
     public function index( Request $request)
     {
-        $this->authorize("viewAny", User::class);
+        $this->authorize('viewAny',User::class);
         $users= User::all();
-
         return response()->json($users,200);
+        
     }
 
     /**
@@ -49,12 +52,11 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $this->authorize("view", User::class);
-
         $user = User::find($id);
         if(!$user){
             return response()->json(['message' => 'User not found'], 404);
         }
+        $this->authorize("view",  $user);
         return response()->json($user,200);
     }
 
@@ -65,9 +67,9 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, string $id)
     {
-        dd($request->all());
 
         $user = User::find($id);
+        $this->authorize('update',$user);
         if(!$user){
             return response()->json(['message' => 'User not found'], 404);
         }
@@ -82,12 +84,11 @@ class UserController extends Controller
             
         }
         $data = [
-            'full_name' => $request->full_name,
-            'email' => $request->email,
-            'gender' => $request->gender,
+            'full_name' => $request->full_name ?? $user->full_name,
+            'email' => $request->email ?? $user->email,
+            'gender' => $request->gender ?? $user->gender,
             'image' => $imageName
         ];
-        dd($data);
         $user->update($data);
         return response()->json(["message"=>"User updated","user"=>$user],200);
     }
@@ -101,6 +102,7 @@ class UserController extends Controller
         if(!$user){
             return response()->json(['message' => 'User not found'], 404);
         }
+        $this->authorize('delete',$user);
         if ($user->image && File::exists(public_path("images/users/{$user->image}"))) {
             File::delete(public_path("images/users/{$user->image}"));
         }
