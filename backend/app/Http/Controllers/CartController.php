@@ -22,19 +22,20 @@ class CartController extends Controller
         return  CartResource::collection(Cart::all());
     }
 
-     
+    
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreCartRequest $request)
-    {
-       $stockValidation= $this->checkStock($request);
+    {  
+        // $this->authorize("create", Cart::class);
+        $stockValidation= $this->checkStock($request);
         if(!$stockValidation){
             return response()->json(['error' => 'The stock is Lowar than  cart quantity'],403 );
-      }
-         $cart = Cart::create($request->validated());
-         return response()->json(new CartResource( $cart), 201);
+        }
+        $cart = Cart::create($request->validated());
+        return response()->json(new CartResource( $cart), 201);
     }
 
     /**
@@ -42,10 +43,10 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-         return new CartResource( $cart);
+        return new CartResource( $cart);
     }
 
-   
+
 
     /**
      * Update the specified resource in storage.
