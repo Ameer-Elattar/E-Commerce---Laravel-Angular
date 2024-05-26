@@ -21,7 +21,11 @@ export class OrderService {
 
   getOrderByName(title: string): Observable<Order> {
     return this.http.get<Order>(`${this.baseUrl}/orders/title/${title}`);
-  } 
+  }
+
+  cancel(id :number){
+    return this.http.get(`${this.baseUrl}/orders/${id}/cancel`);
+  }
 
 }
 

@@ -25,47 +25,8 @@ export class OrdersComponent implements OnInit{
       this.OrderService.orders = data.data});
   }
 
-  details(){
-    console.log(this.OrderService.orders);
+  cancel(id : number) {
+    this.OrderService.cancel(id).subscribe();
   }
-
-  // orders=[{
-  //   id:1,
-  //   name:'amro',
-  //   price:100,
-  //   status:"progress",
-  //   quantity:1,
-  //   total:100,
-  //   date:'12/12/2021',
-  //   total_price:"100",
-  //   products:[{
-  //     id:1,
-  //     name:'amro',
-  //     price:100,
-  //     quantity:1,
-  //     total:100,
-  //     date:'12/12/2021',
-  //     img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPxfrd4wI6J8H-TTm5xSWZXPglddGveslM8Og3I4u_bA&s"
-  //   }]
-  // },
-  // {
-  //   id:2,
-  //   name:'amro',
-  //   price:100,
-  //   status:"progress",
-  //   quantity:1,
-  //   total:100,
-  //   date:'12/12/2021',
-  //   total_price:"100",
-  //   products:[{
-  //     id:1,
-  //     name:'amro',
-  //     price:100,
-  //     quantity:1,
-  //     total:100,
-  //     date:'12/12/2021',
-  //     img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPxfrd4wI6J8H-TTm5xSWZXPglddGveslM8Og3I4u_bA&s"
-  //   }]
-  // }]
 
 }

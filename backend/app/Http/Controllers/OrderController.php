@@ -101,4 +101,16 @@ class OrderController extends Controller
         $Order->delete();
         return response()->json(['message'=> 'Order deleted'],200);
     }
+
+    public function cancel(string $id)
+    {
+        $Order = Order::find($id);
+        if(!$Order){
+            return response()->json(['message'=> 'Order not found'],404);
+        }elseif($Order->status == 'done'){
+            return response()->json(['message'=> 'Cant Cancel order Done'],404);
+        }
+        $Order ->update(['status' => 'cancel']);
+        return response()->json($Order,201);
+    }
 }

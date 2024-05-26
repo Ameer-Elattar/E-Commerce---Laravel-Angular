@@ -64,6 +64,7 @@ Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);
 
 
 Route::apiResource('orders', OrderController::class);
+Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
 // Route::get('/orders', [OrderController::class, 'index']);
 
 Route::apiResource('admins', AdminController::class);

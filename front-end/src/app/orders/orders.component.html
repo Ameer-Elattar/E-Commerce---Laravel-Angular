@@ -21,7 +21,7 @@
 			  <td class="text-dark">{{order.id }}</td>
 			  <td class="text-dark">{{order.status}}</td>
 			  <td>
-				<button type="button" class="btn btn-danger">Cancel</button>
+				<button type="button" (click)="cancel(order.id)" class="btn btn-danger">Cancel</button>
 			  </td>
 			</tr>
 		  </tbody>
