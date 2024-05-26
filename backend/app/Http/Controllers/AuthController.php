@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth; // Import the JWTAuth facade
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+    protected $guard;
+
     /**
      * Create a new AuthController instance.
      *
@@ -24,34 +24,30 @@ class AuthController extends Controller
     /**
      * Get a JWT via given credentials.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    // public function login()
-    // {
-    //     $credentials = request(['email', 'password']);
-    //     if (! $token = auth()->attempt($credentials)) {
-    //         return response()->json(['error' => 'Unauthorized'], 401);
-    //     }
-
-    //     return $this->respondWithToken($token);
-    // }
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        // Determine the type of user attempting to log in
+        // Determine if the user is an admin
         $isAdmin = Admin::where('email', $credentials['email'])->exists();
 
+        // Attempt to authenticate the user
         if ($isAdmin) {
-            if (!$token = Auth::guard('api-admins')->attempt($credentials)) {
+            $this->guard = 'api-admins';
+            if (!$token = Auth::guard($this->guard)->attempt($credentials)) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
         } else {
-            if (!$token = Auth::guard('api')->attempt($credentials)) {
+            $this->guard = 'api';
+            if (!$token = Auth::guard($this->guard)->attempt($credentials)) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
         }
 
+        // Return the token
         return $this->respondWithToken($token);
     }
 
@@ -62,7 +58,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth()->guard($this->guard)->user());
     }
 
     /**
@@ -72,7 +68,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth()->guard($this->guard)->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -84,14 +80,14 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(JWTAuth::refresh(JWTAuth::getToken()));
+        $newToken = JWTAuth::refresh(JWTAuth::getToken());
+        return $this->respondWithToken($newToken);
     }
 
     /**
      * Get the token array structure.
      *
-     * @param  string $token
-     *
+     * @param string $token
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithToken($token)
@@ -100,7 +96,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'user' => auth()->guard($this->guard)->user()
         ]);
     }
 }

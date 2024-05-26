@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index( Request $request)
     {
+        $this->authorize("viewAny", User::class);
         $users= User::all();
 
         return response()->json($users,200);
@@ -45,6 +49,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize("view", User::class);
+
         $user = User::find($id);
         if(!$user){
             return response()->json(['message' => 'User not found'], 404);

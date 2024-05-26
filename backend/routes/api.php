@@ -33,7 +33,7 @@ Route::group([
 
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'multi.auth:api,api-admins'], function () {
     Route::apiResource('users', UserController::class);
 });
 
