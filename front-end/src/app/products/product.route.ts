@@ -24,7 +24,7 @@ export const productroutes: Routes = [
             path: 'product-search', 
             component: ProductsSearchComponent 
           },
-         
+        
         ]
       }
       
