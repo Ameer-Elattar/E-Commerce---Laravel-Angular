@@ -52,3 +52,11 @@ body {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+
+.price{
+  font-style: italic;
+  color: rgb(73, 73, 71);
+ font-family:Arial, Helvetica, sans-serif;
+
+}
