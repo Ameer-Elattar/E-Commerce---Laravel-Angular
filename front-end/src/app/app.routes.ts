@@ -29,6 +29,12 @@ export const routes: Routes = [
     path: 'cart',
     component: CartComponent,
   },
+  
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+  },
+
   {
     path:"**",
     component:NotFoundComponent
