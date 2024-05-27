@@ -104,21 +104,32 @@ class OrderController extends Controller
 
     public function cancel(string $id)
     {
-        $Order = Order::find($id);
-        if(!$Order){
-            return response()->json(['message'=> 'Order not found'],404);
-        }elseif($Order->status == 'done' || $Order->status == 'cancel'){
-            return response()->json(['message'=> 'Cant Cancel order'],404);
-        }
-        $Order ->update(['status' => 'cancel']);
-
-
-        foreach ($Order->products as $product) {
-            $product->stock = $product->stock += $product->pivot->quantity;
-            $product->save();
+        try{
+                
+            $Order = Order::findOrFail($id);
+        
+            if($Order->status == 'done' || $Order->status == 'cancel'){
+                throw new \Exception("Cant Cancel order");
             }
 
+            DB::beginTransaction();
 
-        return response()->json($Order,202);
+            $Order ->update(['status' => 'cancel']);
+
+
+            foreach ($Order->products as $product) {
+                $product->stock = $product->stock += $product->pivot->quantity;
+                $product->save();
+            }
+            
+            DB::commit();
+            return response()->json($Order,202);
+
+        }catch(\Exception $e){
+
+            return response()->json(['error' => $e->getMessage()], 404);
+    
+        }
     }
+
 }
