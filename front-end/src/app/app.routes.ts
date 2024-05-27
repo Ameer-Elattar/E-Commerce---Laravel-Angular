@@ -5,7 +5,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { CartComponent } from './cart/cart.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { RegisterComponent } from './account/register/register.component';
-
+import { LoginComponent } from './account/login/login.component';
 
 export const routes: Routes = [
   {
@@ -30,17 +30,18 @@ export const routes: Routes = [
     path: 'cart',
     component: CartComponent,
   },
-  
+
   {
     path: 'profile',
     component: UserProfileComponent,
   },
   {
-    path:"registration",
-    component:RegisterComponent
+    path: 'registration',
+    component: RegisterComponent,
   },
+  { path: 'login', component: LoginComponent },
   {
-    path:"**",
-    component:NotFoundComponent
-  }
+    path: '**',
+    component: NotFoundComponent,
+  },
 ];
