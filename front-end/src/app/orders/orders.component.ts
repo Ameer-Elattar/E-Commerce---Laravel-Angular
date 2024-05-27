@@ -22,11 +22,12 @@ export class OrdersComponent implements OnInit{
   ngOnInit() {
 
     this.OrderService.getOrders().subscribe(data => {
-      this.OrderService.orders = data.data});
+      this.OrderService.orders.push(... data.data)});
   }
 
-  cancel(id : number) {
-    this.OrderService.cancel(id).subscribe();
+  cancel(id : number,i :number) {
+    this.OrderService.cancel(id).subscribe(data=>console.log(data));
+    this.orders[i].status = 'cancel'
   }
 
 }

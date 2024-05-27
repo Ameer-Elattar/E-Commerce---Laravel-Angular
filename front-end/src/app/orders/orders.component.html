@@ -2,7 +2,7 @@
 
 <div class="container-fluid container-lg my-5 mx-auto">
 
-	@for(order of this.OrderService.orders; track order.id;let i=$index){
+	@for(order of orders; track order.id;let i=$index){
 	<div class="p-3 order_detailes bg-white bg-opacity-50 my-2">
 	  <div class="table-responsive">
 		<table class="table align-middle">
@@ -21,7 +21,7 @@
 			  <td class="text-dark">{{order.id }}</td>
 			  <td class="text-dark">{{order.status}}</td>
 			  <td>
-				<button type="button" (click)="cancel(order.id)" class="btn btn-danger">Cancel</button>
+				<button type="button" [disabled]="order.status != 'progress'" (click)="cancel(order.id,i)" class="btn btn-danger">Cancel</button>
 			  </td>
 			</tr>
 		  </tbody>
