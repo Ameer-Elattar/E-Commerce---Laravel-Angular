@@ -33,8 +33,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function getImageUrlAttribute()
     {
-        return './assets/uploads/users/' . $this->image;
+        return url('images/users/' . $this->image);
     }
+    
 
     /**
      * The attributes that should be hidden for serialization.
