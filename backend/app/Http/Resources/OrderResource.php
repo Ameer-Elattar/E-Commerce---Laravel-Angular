@@ -24,7 +24,7 @@ class OrderResource extends JsonResource
             'user_id' => $this->user->id,
             'user_full_name' => $this->user->full_name,
             'products' => ProductForOrderResource::collection($this->products),
-            'total_price' => $this->products->sum('price')
+            'total_price' => $this->products->sum('pivot.total')
 
         ];
     }
