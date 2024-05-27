@@ -1,49 +1,76 @@
 <div class="container py-5">
-    <div class="d-flex align-items-center my-3">
-        <input title="check" type="checkbox" name="check-all" class="checkmark" id="check-all">
-        <label for="check-all" class="m-0 mx-3 display-6">Shopping Cart</label>
-    </div>
-    @if (orders.length > 0) {
-    <div class="row">
-        <div class="col-12 col-lg-8">
-            @for (order of orders; track $index) {
-            <div class="d-flex my-2 p-3 border-2 border-dark border-bottom align-items-center">
-                <div class="d-flex align-items-center gap-3">
-                    <input name="order-{{$index}}" type="checkbox" title="check" class="checkmark"
-                        id="order-{{$index}}">
-                    <label class="form-check-label d-none" for="order-{{$index}}">check</label>
-                    <img class="img-responsive border-2 border-dark" width="100" height="100" [src]="order.image"
-                        alt="{{ order.title }}">
-                </div>
-                <div class="row w-100 ms-3">
-                    <div class="d-flex justify-content-between mb-3">
-                        <h5>{{ order.title }}</h5> <button title="delete" type="button" class=" btn-close"><span
-                                class="visually-hidden">delete</span></button>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div>Price: {{ order.price | currency }}</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <label for="quantity"> Quantity</label>
-                            <input type="number" name="quantity" id="quantity" [value]="order.quantity" min="1"
-                                class='form-control'>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            }
+  <div class="d-flex align-items-center my-3">
+    <input
+      title="check"
+      type="checkbox"
+      name="check-all"
+      class="checkmark"
+      id="check-all"
+    />
+    <label for="check-all" class="m-0 mx-3 display-6">Shopping Cart</label>
+  </div>
+  @if (orders.length > 0) {
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      @for (order of orders; track $index) {
+      <div
+        class="d-flex my-2 p-3 border-2 border-dark border-bottom align-items-center"
+      >
+        <div class="d-flex align-items-center gap-3">
+          <input
+            name="order-{{ $index }}"
+            type="checkbox"
+            title="check"
+            class="checkmark"
+            id="order-{{ $index }}"
+          />
+          <label class="form-check-label d-none" for="order-{{ $index }}"
+            >check</label
+          >
+          <img
+            class="img-responsive border-2 border-dark"
+            width="100"
+            height="100"
+            [src]="order.image"
+            alt="{{ order.title }}"
+          />
         </div>
-        <div class="col-12 col-lg-4">
-            <div class="h-auto border border-2 border-dark p-3">
-                <h5>Order Summary</h5>
-                <div class="my-3">Total: {{ total | currency }}</div>
-                <button type="button" class="btn btn-outline-dark ">Checkout</button>
+        <div class="row w-100 ms-3">
+          <div class="d-flex justify-content-between mb-3">
+            <h5>{{ order.title }}</h5>
+            <button title="delete" type="button" class="btn-close bg-secondary">
+              <span class="visually-hidden">delete</span>
+            </button>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>Price: {{ order.price | currency }}</div>
+            <div class="d-flex align-items-center gap-2">
+              <label for="quantity"> Quantity</label>
+              <input
+                type="number"
+                name="quantity"
+                id="quantity"
+                [value]="order.quantity"
+                min="1"
+                class="form-control"
+              />
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-    }@else {
-    <div class="text-center m-5 p-5">No orders found</div>
-    }
+      }
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="h-auto border border-2 border-dark p-3">
+        <h5>Order Summary</h5>
+        <div class="my-3">Total: {{ total | currency }}</div>
+        <button type="button" class="btn btn-outline-dark">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  }@else {
+  <div class="text-center m-5 p-5">No orders found</div>
+  }
 </div>
