@@ -6,6 +6,7 @@ import { CartComponent } from './cart/cart.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { RegisterComponent } from './account/register/register.component';
 import { LoginComponent } from './account/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -20,7 +21,7 @@ export const routes: Routes = [
   {
     path: 'products',
     loadChildren: () =>
-      import('./products/product.route').then((m) => m.productroutes),
+      import('./products/product.route').then((m) => m.productroutes),canActivate:[authGuard]
   },
   {
     path: 'order',

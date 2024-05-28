@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
+  private loggedIn: boolean = false;
   private apiUrl = 'http://127.0.0.1:8000/api/auth';
   private currentUserSubject: BehaviorSubject<any>;
 
@@ -17,6 +18,10 @@ export class AuthService {
     );
   }
 
+  isLoggedIn() {
+    return this.loggedIn;
+  }
+
   login(email: string, password: string): Observable<any> {
     return this.http
       .post<any>(`${this.apiUrl}/login`, { email, password })
@@ -25,6 +30,7 @@ export class AuthService {
           this.currentUserSubject.next(response.user);
           localStorage.setItem('currentUser', JSON.stringify(response.user));
           localStorage.setItem('token', response.access_token);
+          this.loggedIn = true;
         })
       );
   }
@@ -32,6 +38,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
+    this.loggedIn = false;
     this.currentUserSubject.next(null);
   }
 

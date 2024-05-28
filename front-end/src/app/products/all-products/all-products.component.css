@@ -77,4 +77,10 @@
     background: linear-gradient(to right, #6f7378, #bdc3c7);
  
   }
+
+  .card-img-top {
+    height: 300px;
+    object-fit:contain;
+  }
+  
   
