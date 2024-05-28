@@ -12,6 +12,7 @@ import { AdminsComponent } from './dashboard/admins/admins.component';
 import { UsersComponent } from './dashboard/users/users.component';
 import { ProductsComponent } from './dashboard/products/products.component';
 import { UserOrdersComponent } from './dashboard/user-orders/user-orders.component';
+import { AddAdminFormComponent } from './dashboard/admins/add-admin-form/add-admin-form.component';
 
 export const routes: Routes = [
   {
@@ -47,10 +48,11 @@ export const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: 'dashboard',
+    path: 'adminDashboard',
     component: DashboardComponent,
     children: [
       { path: 'admins', component: AdminsComponent },
+      { path: 'admins/add-admin', component: AddAdminFormComponent },
       { path: 'users', component: UsersComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'orders', component: UserOrdersComponent },
