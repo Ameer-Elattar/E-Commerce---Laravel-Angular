@@ -7,16 +7,15 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
+  private loggedIn: boolean = false;
   private apiUrl = 'http://127.0.0.1:8000/api/auth';
   private currentUserSubject: BehaviorSubject<any>;
-  loggedIn: boolean = false;
 
   constructor(private http: HttpClient) {
     const storedUser = localStorage.getItem('currentUser');
     this.currentUserSubject = new BehaviorSubject<any>(
       storedUser ? JSON.parse(storedUser) : null
     );
-    this.loggedIn = !!storedUser;
   }
 
   isLoggedIn() {
