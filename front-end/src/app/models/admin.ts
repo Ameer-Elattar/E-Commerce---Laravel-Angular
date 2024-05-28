@@ -3,5 +3,6 @@ export interface Admin {
   name: string;
   email: string;
   image?: string;
+  image_url: string;
   password?: string;
 }
