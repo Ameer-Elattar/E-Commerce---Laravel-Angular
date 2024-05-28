@@ -9,10 +9,10 @@
     />
     <label for="check-all" class="m-0 mx-3 display-6">Shopping Cart</label>
   </div>
-  @if (orders.length > 0) {
+  @if (cartItems.length > 0) {
   <div class="row">
     <div class="col-12 col-lg-8">
-      @for (order of orders; track $index) {
+      @for (cart of cartItems; track $index) {
       <div
         class="d-flex my-2 p-3 border-2 border-dark border-bottom align-items-center"
       >
@@ -31,26 +31,26 @@
             class="img-responsive border-2 border-dark"
             width="100"
             height="100"
-            [src]="order.image"
-            alt="{{ order.title }}"
+            [src]="cart.product?.image"
+            alt="{{ cart.product?.title }}"
           />
         </div>
         <div class="row w-100 ms-3">
           <div class="d-flex justify-content-between mb-3">
-            <h5>{{ order.title }}</h5>
+            <h5>{{ cart.product?.title }}</h5>
             <button title="delete" type="button" class="btn-close bg-secondary">
               <span class="visually-hidden">delete</span>
             </button>
           </div>
           <div class="d-flex justify-content-between align-items-center">
-            <div>Price: {{ order.price | currency }}</div>
+            <div>Price: {{ cart.product?.price | currency }}</div>
             <div class="d-flex align-items-center gap-2">
               <label for="quantity"> Quantity</label>
               <input
                 type="number"
                 name="quantity"
                 id="quantity"
-                [value]="order.quantity"
+                [value]="cart.quantity"
                 min="1"
                 class="form-control"
               />

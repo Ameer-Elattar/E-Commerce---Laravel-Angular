@@ -29,7 +29,12 @@ class CartController extends Controller
      */
     public function store(StoreCartRequest $request)
     {  
-        // $this->authorize("create", Cart::class);
+        if (Cart::where([
+            'product_id' => $request['product_id'],
+            'user_id' => $request['user_id'],
+          ])->exists()) {
+            return response()->json(['error' => 'This product is already in your cart'],403 );
+          } 
         $stockValidation= $this->checkStock($request);
         if(!$stockValidation){
             return response()->json(['error' => 'The stock is Lowar than  cart quantity'],403 );
