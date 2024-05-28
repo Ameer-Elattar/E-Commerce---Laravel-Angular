@@ -6,7 +6,7 @@ import { CartComponent } from './cart/cart.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { RegisterComponent } from './account/register/register.component';
 import { LoginComponent } from './account/login/login.component';
-import { authGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminsComponent } from './dashboard/admins/admins.component';
 import { UsersComponent } from './dashboard/users/users.component';
@@ -28,7 +28,7 @@ export const routes: Routes = [
     path: 'products',
     loadChildren: () =>
       import('./products/product.route').then((m) => m.productroutes),
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'order',

@@ -27,23 +27,24 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', [AuthController::class,'login']);
-    Route::post('logout', [AuthController::class,'logout']);
-    Route::post('refresh', [AuthController::class,'refresh']);
-    Route::post('me', [AuthController::class,'me']);
-
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
 });
 
 // route with no authentication 
-Route::post('users',[UserController::class,'store']); // register user
+Route::post('users', [UserController::class, 'store']); // register user
 
 
 
 // Route::group(['middleware' => 'multi.auth:api,api-admins'], function () {
-    Route::apiResource('users', UserController::class)->except(['store']);
-    Route::apiResource('products', ProductController::class);
-    Route::get('products/title/{title}', [ProductController::class, 'showByName']);
-    Route::apiResource('carts', CartController::class);
+Route::apiResource('users', UserController::class)->except(['store']);
+Route::apiResource('products', ProductController::class);
+Route::get('products/title/{title}', [ProductController::class, 'showByName']);
+Route::get('products/{id} ', [ProductController::class, 'show']);
+
+Route::apiResource('carts', CartController::class);
 
 // });
 
@@ -65,6 +66,7 @@ Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);
 
 Route::apiResource('orders', OrderController::class);
 Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
+Route::get('/orders/{id}/done', [OrderController::class, 'done']);
 // Route::get('/orders', [OrderController::class, 'index']);
 
 Route::apiResource('admins', AdminController::class);
