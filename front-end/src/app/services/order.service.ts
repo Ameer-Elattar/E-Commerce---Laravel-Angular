@@ -26,6 +26,9 @@ export class OrderService {
   cancel(id :number){
     return this.http.get(`${this.baseUrl}/orders/${id}/cancel`);
   }
+  done(id :number){
+    return this.http.get(`${this.baseUrl}/orders/${id}/done`);
+  }
 
 }
 
