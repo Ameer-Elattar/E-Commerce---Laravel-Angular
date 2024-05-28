@@ -14,8 +14,16 @@ export class CartService {
   getAllCartItems() {
     return this.http.get<any>(this.path);
   }
-
+  getOneCart(id: number) {
+    return this.http.get<Cart>(`${this.path}${id}`);
+  }
   addCartItem(cart: any) {
     return this.http.post(this.path, cart);
+  }
+  updateCart(id: number, Cart: Cart) {
+    return this.http.patch(`${this.path}${id}`, Cart);
+  }
+  deleteCartItem(id: number) {
+    return this.http.delete(`${this.path}${id}`);
   }
 }

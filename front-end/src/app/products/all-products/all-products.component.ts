@@ -33,8 +33,8 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   faEye = faEye;
   faCartPlus = faCartPlus;
   isLoading = true;
+  private cartsubscriptions: Subscription[] = [];
   private productsSubscription: Subscription | undefined;
-  private cartSubscription!: Subscription;
 
   constructor(
     private productService: ProductService,
@@ -56,11 +56,12 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       });
   }
   loadCartItems() {
-    this.cartSubscription = this.cartService
+    const cartSub = this.cartService
       .getAllCartItems()
       .subscribe((cartItems) => {
         this.cartItems = cartItems.data;
       });
+    this.cartsubscriptions.push(cartSub);
   }
 
   setPage(page: number) {
@@ -84,28 +85,39 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     }
   }
   addToCart(product_id: number) {
-    const CartItemExisting = this.cartItems.find(
-      (obj) => obj.user_id === 1 && obj.product_id === product_id
-    );
-    if (CartItemExisting) {
+    if (this.isCartItemExisting(product_id)) {
       console.log('cart item already exists');
       return;
     }
-    //TODO: Send only the product ID after finshing  backend authentication.
-    const cartItem: Cart = {
+    const cartItem = this.createCartItem(product_id);
+    this.addCartItemToBackend(cartItem);
+  }
+
+  isCartItemExisting(product_id: number): boolean {
+    return this.cartItems.some(
+      (obj) => obj.user_id === 1 && obj.product_id === product_id
+    );
+  }
+  // TODO: Send only the product ID after finishing backend authentication.
+  createCartItem(product_id: number): Cart {
+    return {
       product_id,
       user_id: 1,
       quantity: 1,
       product: null,
     };
-    this.cartSubscription = this.cartService.addCartItem(cartItem).subscribe(
+  }
+
+  addCartItemToBackend(cartItem: Cart) {
+    const addCartSub = this.cartService.addCartItem(cartItem).subscribe(
       (data) => {
         this.cartItems.push(cartItem);
       },
       (error) => {
-        console.error('Error Posting cart item', error);
+        console.error('Error posting cart item', error);
       }
     );
+    this.cartsubscriptions.push(addCartSub);
   }
 
   prevPage() {
@@ -118,8 +130,6 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     if (this.productsSubscription) {
       this.productsSubscription.unsubscribe();
     }
-    if (this.cartSubscription) {
-      this.cartSubscription.unsubscribe();
-    }
+    this.cartsubscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

@@ -36,14 +36,27 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     );
   }
-  // confermDelete(productId) {
-  //   this.cartService.deleteCartItem(productId);
 
-  //   this.students = this.students.filter((obj) => obj.id !== this.sts.id);
-  //   this.cartService.deleteStudent(this.sts.id).subscribe({
-  //     next: (data) => {},
-  //   });
-  // }
+  increaseQuantity(cart: Cart) {
+    cart.quantity += 1;
+    this.updateTotal();
+  }
+
+  decreaseQuantity(cart: Cart) {
+    if (cart.quantity > 1) {
+      cart.quantity -= 1;
+      this.updateTotal();
+    }
+  }
+
+  updateTotal() {
+    this.total = this.cartItems.reduce((sum, item) => {
+      if (item.product) {
+        return (sum ?? 0) + item.product.price * item.quantity;
+      }
+      return sum;
+    }, 0);
+  }
 
   ngOnDestroy() {
     if (this.subscription) {
