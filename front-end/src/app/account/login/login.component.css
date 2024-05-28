@@ -67,6 +67,7 @@ img {
 
 .signin a:hover {
   text-decoration: underline royalblue;
+  cursor: pointer;
 }
 
 .flex {

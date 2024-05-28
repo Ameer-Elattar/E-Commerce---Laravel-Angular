@@ -31,7 +31,9 @@
                 <!-- Display error message -->
                 <div *ngIf="loginError" class="alert alert-danger">{{ loginError }}</div>
                 <button type="submit" class="submit" [disabled]="loginForm.invalid">Login</button>
+                <p class="signin">Don't have an acount ? <a routerLink="/registration">Signup</a></p>
             </form>
+
         </div>
         <img src="../../../assets/images/registration/sofa-7354949_1280.png" class="col d-none d-lg-block" alt="" />
     </section>
