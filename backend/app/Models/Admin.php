@@ -11,6 +11,13 @@ class Admin extends Authenticatable implements JWTSubject
     use HasFactory;
     protected $fillable = ['name', 'image', 'email','password'];
 
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return url('images/admins/' . $this->image);
+    }
+
         /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
