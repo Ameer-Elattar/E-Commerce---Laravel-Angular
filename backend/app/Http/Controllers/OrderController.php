@@ -108,7 +108,7 @@ class OrderController extends Controller
                 
             $Order = Order::findOrFail($id);
         
-            if($Order->status == 'done' || $Order->status == 'cancel'){
+            if($Order->status != 'progress'){
                 throw new \Exception("Cant Cancel order");
             }
 
@@ -126,10 +126,22 @@ class OrderController extends Controller
             return response()->json($Order,202);
 
         }catch(\Exception $e){
-
+            DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 404);
     
         }
+    }
+
+
+    public function done(Request $request, string $id)
+    {
+        $Order = Order::find($id);
+        if(!$Order || $Order->status != 'progress'){
+            return response()->json(['message'=> 'Order Cant Be Done'],404);
+        }
+
+        $Order ->update(['status'=> 'done']);
+        return response()->json($Order,200);
     }
 
 }
