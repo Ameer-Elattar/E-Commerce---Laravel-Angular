@@ -10,7 +10,7 @@ import { Order } from '../models/order';
 })
 export class OrderService {
   public orders : Order[]=[];
-  private baseUrl = 'http://127.0.0.1:8000/api'; 
+  private baseUrl = 'http://127.0.0.1:8000/api';
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +25,9 @@ export class OrderService {
 
   cancel(id :number){
     return this.http.get(`${this.baseUrl}/orders/${id}/cancel`);
+  }
+  done(id :number){
+    return this.http.get(`${this.baseUrl}/orders/${id}/done`);
   }
 
 }

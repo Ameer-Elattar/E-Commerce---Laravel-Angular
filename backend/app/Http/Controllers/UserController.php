@@ -22,10 +22,10 @@ class UserController extends Controller
      */
     public function index( Request $request)
     {
-        $this->authorize('viewAny',User::class);
+        // $this->authorize('viewAny',User::class);
         $users= User::all();
         return response()->json($users,200);
-        
+
     }
 
     /**
@@ -81,7 +81,7 @@ class UserController extends Controller
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move('images/users', $imageName);
-            
+
         }
         $data = [
             'full_name' => $request->full_name ?? $user->full_name,
@@ -102,7 +102,7 @@ class UserController extends Controller
         if(!$user){
             return response()->json(['message' => 'User not found'], 404);
         }
-        $this->authorize('delete',$user);
+        // $this->authorize('delete',$user);
         if ($user->image && File::exists(public_path("images/users/{$user->image}"))) {
             File::delete(public_path("images/users/{$user->image}"));
         }

@@ -1,13 +1,13 @@
 <section class="mt-5 position-relative">
   <div class="d-flex justify-content-between w-50">
     <img
-      src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"
+      [src]="currentUser.image_url"
       alt=""
     />
     <div>
-      <h1>User Name</h1>
-      <h3 class="text-muted">Email</h3>
-      <h6 class="text-muted">Gender</h6>
+      <h1>{{currentUser.full_name}}</h1>
+      <h3 class="text-muted">{{currentUser.email}}</h3>
+      <h6 class="text-muted">{{currentUser.gender}}</h6>
     </div>
     <app-edit-info></app-edit-info>
   </div>

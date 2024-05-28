@@ -6,6 +6,13 @@ import { CartComponent } from './cart/cart.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { RegisterComponent } from './account/register/register.component';
 import { LoginComponent } from './account/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminsComponent } from './dashboard/admins/admins.component';
+import { UsersComponent } from './dashboard/users/users.component';
+import { ProductsComponent } from './dashboard/products/products.component';
+import { UserOrdersComponent } from './dashboard/user-orders/user-orders.component';
+import { AddAdminFormComponent } from './dashboard/admins/add-admin-form/add-admin-form.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +28,7 @@ export const routes: Routes = [
     path: 'products',
     loadChildren: () =>
       import('./products/product.route').then((m) => m.productroutes),
+    canActivate: [AuthGuard],
   },
   {
     path: 'order',
@@ -39,6 +47,18 @@ export const routes: Routes = [
     path: 'registration',
     component: RegisterComponent,
   },
+  {
+    path: 'adminDashboard',
+    component: DashboardComponent,
+    children: [
+      { path: 'admins', component: AdminsComponent },
+      { path: 'admins/add-admin', component: AddAdminFormComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'orders', component: UserOrdersComponent },
+    ],
+  },
+
   { path: 'login', component: LoginComponent },
   {
     path: '**',

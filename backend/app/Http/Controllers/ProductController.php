@@ -6,6 +6,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 
 class ProductController extends Controller
@@ -84,9 +86,7 @@ class ProductController extends Controller
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-            if ($product->image) {
-                Storage::delete('images/products/' . $product->image);
-            }
+            $this->deleteImage($product->image);
 
             $image->move("images/products",$imageName);
         
@@ -116,8 +116,21 @@ class ProductController extends Controller
             return response()->json(['error' => 'Product not found'], 404);
         }
         $this->authorize('delete',$product);
+
+        $this->deleteImage($product->image);
         $product->delete();
 
         return response()->json(['message' => 'Deleted'], 200);
     }
+
+
+    private function deleteImage($imageName) {
+        if ($imageName) {
+            $imagePath = public_path("images/products/{$imageName}");
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+    }
+
 }
