@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './add-admin-form.component.html',
   styleUrl: './add-admin-form.component.css',
 })
+
 export class AddAdminFormComponent {
   newAdmin: any = {};
   validationErrors: any = {};

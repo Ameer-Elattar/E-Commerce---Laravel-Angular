@@ -13,6 +13,9 @@ import { UsersComponent } from './dashboard/users/users.component';
 import { ProductsComponent } from './dashboard/products/products.component';
 import { UserOrdersComponent } from './dashboard/user-orders/user-orders.component';
 import { AddAdminFormComponent } from './dashboard/admins/add-admin-form/add-admin-form.component';
+import { AddProductFormComponent } from './dashboard/products/add-product-form/add-product-form.component';
+import { ShowProductComponent } from './dashboard/products/show-product/show-product.component';
+import { EditProductFormComponent } from './dashboard/products/edit-product-form/edit-product-form.component';
 
 export const routes: Routes = [
   {
@@ -55,6 +58,9 @@ export const routes: Routes = [
       { path: 'admins/add-admin', component: AddAdminFormComponent },
       { path: 'users', component: UsersComponent },
       { path: 'products', component: ProductsComponent },
+      { path: 'products/add-product', component: AddProductFormComponent },
+      { path: 'products/edit-product/:id', component: EditProductFormComponent },
+      { path: 'products/:id', component: ShowProductComponent },
       { path: 'orders', component: UserOrdersComponent },
     ],
   },
