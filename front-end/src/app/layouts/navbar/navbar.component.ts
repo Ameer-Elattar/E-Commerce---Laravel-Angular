@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
+import { CartService } from '../../services/cart.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -12,20 +14,31 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   isNavbarTransparent: boolean = true;
   faCartPlus = faCartPlus;
   searchQuery: string = '';
   currentUser: any;
-  userRole:string|null=localStorage.getItem('role');
-
-  constructor(private router: Router, private authService: AuthService) {}
+  cartItems: number = 0;
+  private cartsubscriptions!: Subscription;
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private cartService: CartService
+  ) {}
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((user) => {
       this.currentUser = user;
     });
-    console.log(this.userRole);
-    
+    this.getItemsCartNumber();
+  }
+
+  getItemsCartNumber() {
+    this.cartsubscriptions = this.cartService
+      .getIteminCart()
+      .subscribe((cartItems) => {
+        this.cartItems = cartItems;
+      });
   }
   logout() {
     this.authService.logout();
@@ -45,6 +58,11 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(['/products/product-search'], {
         queryParams: { title: this.searchQuery },
       });
+    }
+  }
+  ngOnDestroy(): void {
+    if (this.cartsubscriptions) {
+      this.cartsubscriptions.unsubscribe();
     }
   }
 }

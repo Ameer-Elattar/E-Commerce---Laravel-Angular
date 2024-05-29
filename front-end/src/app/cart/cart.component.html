@@ -4,7 +4,7 @@
       title="check"
       type="checkbox"
       name="check-all"
-      class="checkmark"
+      class="checkmark form-check-input"
       id="check-all"
     />
     <label for="check-all" class="m-0 mx-3 display-6">Shopping Cart</label>
@@ -21,7 +21,7 @@
             name="order-{{ $index }}"
             type="checkbox"
             title="check"
-            class="checkmark"
+            class="checkmark form-check-input"
             id="order-{{ $index }}"
           />
           <label class="form-check-label d-none" for="order-{{ $index }}"
@@ -38,27 +38,50 @@
         <div class="row w-100 ms-3">
           <div class="d-flex justify-content-between mb-3">
             <h5>{{ cart.product?.title }}</h5>
-            <button title="delete" type="button" class="btn-close bg-secondary">
+            <button
+              title="delete"
+              type="button"
+              (click)="removeCartItem(cart.id)"
+              class="btn-close bg-secondary"
+            >
               <span class="visually-hidden">delete</span>
             </button>
           </div>
           <div class="d-flex justify-content-between align-items-center">
             <div>Price: {{ cart.product?.price | currency }}</div>
             <div class="d-flex align-items-center gap-2">
-              <label for="quantity"> Quantity</label>
-              <input
-                type="number"
-                name="quantity"
-                id="quantity"
-                [value]="cart.quantity"
-                min="1"
-                class="form-control"
-              />
+              <label for="quantity-{{ $index }}" class="me-2">Quantity</label>
+              <div class="input-group">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="decreaseQuantity(cart)"
+                  [disabled]="cart.quantity <= 1"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  name="quantity-{{ $index }}"
+                  id="quantity-{{ $index }}"
+                  [value]="cart.quantity"
+                  min="1"
+                  class="form-control text-center"
+                  readonly
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="increaseQuantity(cart)"
+                  [disabled]="cart.quantity >= (cart.product?.stock || 100)"
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       }
     </div>
     <div class="col-12 col-lg-4">
@@ -69,8 +92,7 @@
       </div>
     </div>
   </div>
-
-  }@else {
+  } @else {
   <div class="text-center m-5 p-5">No orders found</div>
   }
 </div>
