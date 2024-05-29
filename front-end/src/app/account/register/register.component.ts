@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -21,14 +22,32 @@ export class RegisterComponent implements OnInit {
     ],
     gender: ['', [Validators.required]],
   });
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    protected router: Router
+  ) {}
 
   ngOnInit() {}
 
   onSubmit() {
-    if (!this.registerForm.valid) this.registerForm.markAllAsTouched();
-
-    console.log(this.registerForm.value);
+    if (!this.registerForm.valid) {
+      this.registerForm.markAllAsTouched();
+      // return;
+    }
+    let { firstName, lastName, email, password, gender } =
+      this.registerForm.value;
+    const body = {
+      full_name: `${firstName} ${lastName}`,
+      email,
+      password,
+      gender,
+    };
+    this.userService.createUser(body).subscribe((user) => {
+      console.log(user);
+      this.router.navigateByUrl('/login');
+    });
+    console.log(body);
   }
 
   get firstName() {

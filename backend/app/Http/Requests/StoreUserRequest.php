@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
             "password"=>["required","string",Password::min(8)->mixedCase()],
             "email"=>["required","string","email",Rule::unique('users')->ignore($this->user->id??null)],
             "gender"=>["required",Rule::in(["male","female"])],
-            "image"=>["required","image"]
+            "image"=>["sometimes","image"]
 
         ];
     }

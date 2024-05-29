@@ -17,12 +17,15 @@ export class NavbarComponent implements OnInit {
   faCartPlus = faCartPlus;
   searchQuery: string = '';
   currentUser: any;
+  userRole:string|null=localStorage.getItem('role');
 
   constructor(private router: Router, private authService: AuthService) {}
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((user) => {
       this.currentUser = user;
     });
+    console.log(this.userRole);
+    
   }
   logout() {
     this.authService.logout();
