@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class CartComponent implements OnInit, OnDestroy {
   cartItems: Cart[] = [];
-  private subscription!: Subscription;
+  private cartsubscriptions: Subscription[] = [];
   total: number = 0;
   get totalAmount() {
     this.total = 0;
@@ -27,7 +27,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   constructor(private cartService: CartService) {}
   ngOnInit(): void {
-    this.subscription = this.cartService.getAllCartItems().subscribe(
+    const ALLCartsSub = this.cartService.getAllCartItems().subscribe(
       (data) => {
         this.cartItems = data.data;
       },
@@ -35,18 +35,30 @@ export class CartComponent implements OnInit, OnDestroy {
         console.error('Error fetching cart items', error);
       }
     );
+    this.cartsubscriptions.push(ALLCartsSub);
   }
 
   increaseQuantity(cart: Cart) {
     cart.quantity += 1;
     this.updateTotal();
+    this.updateCartItemInBackend(cart);
   }
 
   decreaseQuantity(cart: Cart) {
     if (cart.quantity > 1) {
       cart.quantity -= 1;
       this.updateTotal();
+      this.updateCartItemInBackend(cart);
     }
+  }
+
+  updateCartItemInBackend(cart: Cart) {
+    const increaseCartQuantity = this.cartService
+      .updateCart(cart)
+      .subscribe((data) => {
+        console.log(data);
+      });
+    this.cartsubscriptions.push(increaseCartQuantity);
   }
 
   updateTotal() {
@@ -57,10 +69,18 @@ export class CartComponent implements OnInit, OnDestroy {
       return sum;
     }, 0);
   }
+  removeCartItem(id: number) {
+    const removeCartItem = this.cartService
+      .deleteCartItem(id)
+      .subscribe((data) => {
+        this.cartService.removeItemfromCart();
+      });
+    this.cartsubscriptions.push(removeCartItem);
+    this.cartItems = this.cartItems.filter((item) => item.id !== id);
+    this.updateTotal();
+  }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.cartsubscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

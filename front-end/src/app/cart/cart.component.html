@@ -38,7 +38,12 @@
         <div class="row w-100 ms-3">
           <div class="d-flex justify-content-between mb-3">
             <h5>{{ cart.product?.title }}</h5>
-            <button title="delete" type="button" class="btn-close bg-secondary">
+            <button
+              title="delete"
+              type="button"
+              (click)="removeCartItem(cart.id)"
+              class="btn-close bg-secondary"
+            >
               <span class="visually-hidden">delete</span>
             </button>
           </div>
@@ -51,6 +56,7 @@
                   class="btn btn-outline-secondary"
                   type="button"
                   (click)="decreaseQuantity(cart)"
+                  [disabled]="cart.quantity <= 1"
                 >
                   -
                 </button>
@@ -67,6 +73,7 @@
                   class="btn btn-outline-secondary"
                   type="button"
                   (click)="increaseQuantity(cart)"
+                  [disabled]="cart.quantity >= (cart.product?.stock || 100)"
                 >
                   +
                 </button>

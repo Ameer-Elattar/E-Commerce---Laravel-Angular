@@ -105,6 +105,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       user_id: 1,
       quantity: 1,
       product: null,
+      id: this.cartItems.length + 1,
     };
   }
 
@@ -112,6 +113,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     const addCartSub = this.cartService.addCartItem(cartItem).subscribe(
       (data) => {
         this.cartItems.push(cartItem);
+        this.cartService.pushIteminCart();
       },
       (error) => {
         console.error('Error posting cart item', error);
