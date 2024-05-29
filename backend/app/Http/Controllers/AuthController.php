@@ -95,6 +95,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
+            'role'=>Auth::guard('api')->check()? "user" :"admin",
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
             'user' => auth()->guard($this->guard)->user()
         ]);

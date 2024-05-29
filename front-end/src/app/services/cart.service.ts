@@ -1,29 +1,52 @@
 import { Injectable } from '@angular/core';
-import { OrderDetails } from '../models/orderDetails';
+import { Cart } from '../models/cart';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  constructor() {}
-  generateRandomOrders(numOrders: number): OrderDetails[] {
-    const orders: OrderDetails[] = [];
-
-    for (let i = 0; i < numOrders; i++) {
-      const order: OrderDetails = {
-        id: i + 1,
-        title: `Product ${i + 1}`,
-        price: this.getRandomNumber(10, 100),
-        quantity: this.getRandomNumber(1, 5),
-        image: `https://picsum.photos/200/300?random=${i + 1}`,
-      };
-
-      orders.push(order);
-    }
-
-    return orders;
+  path: string = 'http://127.0.0.1:8000/api/carts/';
+  public cartArray: Cart[] = [];
+  public cartLength: number = 0;
+  cartLengthSubject: Subject<any> = new Subject();
+  constructor(public http: HttpClient) {
+    this.getAllCartItems().subscribe((data) => {
+      this.cartArray = data.data;
+      this.cartLength = this.cartArray.length;
+      this.cartLengthSubject.next(this.cartLength);
+    });
   }
-  private getRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  getAllCartItems() {
+    return this.http.get<any>(this.path);
+  }
+  getOneCart(id: number) {
+    return this.http.get<Cart>(`${this.path}${id}`);
+  }
+  addCartItem(cart: any) {
+    return this.http.post(this.path, cart);
+  }
+  updateCart(cart: Cart) {
+    return this.http.patch(`${this.path}${cart.id}`, cart);
+  }
+  deleteCartItem(id: number) {
+    const options = {
+      body: { user_id: 1 },
+    };
+    return this.http.delete(`${this.path}${id}`, options);
+  }
+
+  pushIteminCart() {
+    this.cartLength++;
+    this.cartLengthSubject.next(this.cartLength);
+  }
+  removeItemfromCart() {
+    this.cartLength--;
+    this.cartLengthSubject.next(this.cartLength);
+  }
+
+  getIteminCart(): Observable<any> {
+    return this.cartLengthSubject.asObservable();
   }
 }

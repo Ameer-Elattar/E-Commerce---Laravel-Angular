@@ -34,5 +34,6 @@ USE e_commerce;
 composer install
 # php artisan migrate
 # php artisan db:seed
+php artisan jwt:secret
 php artisan serve
 ```

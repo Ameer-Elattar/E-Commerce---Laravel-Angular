@@ -17,7 +17,6 @@ export class AuthService {
     );
   }
 
- 
   login(email: string, password: string): Observable<any> {
     return this.http
       .post<any>(`${this.apiUrl}/login`, { email, password })
@@ -26,6 +25,7 @@ export class AuthService {
           this.currentUserSubject.next(response.user);
           localStorage.setItem('currentUser', JSON.stringify(response.user));
           localStorage.setItem('token', response.access_token);
+          localStorage.setItem('role',response.role);
         })
       );
   }
@@ -33,6 +33,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     this.currentUserSubject.next(null);
   }
 

@@ -33,8 +33,17 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $image=$request->file("image");
-        $imageName=time().'_'.$image->getClientOriginalName();
+        $imageName= null;
+        $defaultImagePath = 'images/default/default_avatat.jpg';
+
+        if($request->hasFile('image')){
+            $image=$request->file("image");
+            $imageName=time().'_'.$image->getClientOriginalName();
+            $image->move("images/users",$imageName);
+        }else{
+        $imageName = time() . '_default_avatar.jpg';
+        File::copy(public_path($defaultImagePath), public_path('images/users/' . $imageName));
+        }
         $hashedPassword=Hash::make($request->password);
         $user=User::create([
             "full_name"=>$request->full_name,
@@ -43,7 +52,6 @@ class UserController extends Controller
             "gender"=>$request->gender,
             "image"=>$imageName
         ]);
-        $image->move("images/users",$imageName);
         return response()->json($user,201);
     }
 

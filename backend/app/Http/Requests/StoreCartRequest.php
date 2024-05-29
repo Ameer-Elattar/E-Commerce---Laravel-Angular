@@ -25,7 +25,7 @@ class StoreCartRequest extends FormRequest
             // TODO ensure that a user can only add his own ID
             'user_id' => 'required|integer|exists:users,id',
             'product_id' => 'required|integer|exists:products,id',
-            'quantity' => 'required|integer|min:1',
+            // 'quantity' => 'required|integer|min:1',
           
         ];
     }
