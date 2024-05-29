@@ -6,14 +6,18 @@
   }"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="profile">
+    <a class="navbar-brand" routerLink="user/profile">
       <img
         src="./assets/images/customer_img_1.jpg"
         alt="Brand"
         class="rounded-circle"
         style="width: 40px; height: 40px"
       />
-      <span class="ms-2 fw-light fs-6 d-none d-lg-inline" *ngIf="currentUser">{{
+      <span class="ms-2 fw-light fs-6 d-none d-lg-inline"  [ngClass]="
+      isNavbarTransparent
+        ? 'text-dark'
+        : 'text-light' "
+     *ngIf="currentUser">{{
         currentUser.full_name
       }}</span>
     </a>
@@ -92,7 +96,7 @@
         <li *ngIf="!currentUser" class="nav-item">
           <a
             class="nav-link"
-            routerLink="login"
+            routerLink="account/login"
             [ngClass]="{ text: !isNavbarTransparent }"
             >Login</a
           >
@@ -109,7 +113,7 @@
           <a
             class="nav-link"
             [ngClass]="{ text: !isNavbarTransparent }"
-            [routerLink]="['/cart']"
+            [routerLink]="['cart']"
           >
             <fa-icon [icon]="faCartPlus" class="icon"> </fa-icon>
             @if(cartItems>0){

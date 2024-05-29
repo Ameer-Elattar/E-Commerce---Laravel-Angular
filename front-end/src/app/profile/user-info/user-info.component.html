@@ -1,14 +1,17 @@
-<section class="mt-5 position-relative">
-  <div class="d-flex justify-content-between w-50">
-    <img
-      [src]="currentUser.image_url"
-      alt=""
-    />
-    <div>
-      <h1>{{currentUser.full_name}}</h1>
-      <h3 class="text-muted">{{currentUser.email}}</h3>
-      <h6 class="text-muted">{{currentUser.gender}}</h6>
+<section class="user-profile mt-5">
+  <div class="sidebar">
+    <img [src]="currentUser.image_url" alt="User Image" class="user-image"/>
+    <h1 class="user-name">{{currentUser.full_name}}</h1>
+  </div>
+  <div class="details">
+    <div class="edit-button">
+      <app-edit-info></app-edit-info>
     </div>
-    <app-edit-info></app-edit-info>
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">{{currentUser.email}}</h3>
+        <h6 class="card-subtitle">{{currentUser.gender}}</h6>
+      </div>
+    </div>
   </div>
 </section>

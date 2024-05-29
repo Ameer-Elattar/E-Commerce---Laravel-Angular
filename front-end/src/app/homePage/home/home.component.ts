@@ -1,13 +1,14 @@
 import { Component} from '@angular/core';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { ContentComponent } from '../content/content.component';
+import { FooterComponent } from "../../layouts/footer/footer.component";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CarouselComponent,ContentComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    standalone: true,
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css',
+    imports: [CarouselComponent, ContentComponent, FooterComponent]
 })
 export class HomeComponent {
   carouselImages = [

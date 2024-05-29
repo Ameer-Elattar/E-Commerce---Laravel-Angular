@@ -3,6 +3,7 @@ import { NavbarComponent } from "../../layouts/navbar/navbar.component";
 import { CarouselComponent } from "../../homePage/carousel/carousel.component";
 import { AllProductsComponent } from "../all-products/all-products.component";
 import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from "../../layouts/footer/footer.component";
 
 
 @Component({
@@ -10,7 +11,7 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     templateUrl: './products-view.component.html',
     styleUrl: './products-view.component.css',
-    imports: [NavbarComponent, CarouselComponent, AllProductsComponent,RouterOutlet]
+    imports: [NavbarComponent, CarouselComponent, AllProductsComponent, RouterOutlet, FooterComponent]
 })
 
 export class ProductsViewComponent {
