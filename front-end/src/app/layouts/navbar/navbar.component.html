@@ -112,9 +112,11 @@
             [routerLink]="['/cart']"
           >
             <fa-icon [icon]="faCartPlus" class="icon"> </fa-icon>
+            @if(cartItems>0){
             <span class="bg-danger text-white px-1 rounded-2">{{
               cartItems
             }}</span>
+            }
           </a>
         </li>
       </ul>

@@ -38,7 +38,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .getIteminCart()
       .subscribe((cartItems) => {
         this.cartItems = cartItems;
-        console.log(cartItems);
       });
   }
   logout() {
