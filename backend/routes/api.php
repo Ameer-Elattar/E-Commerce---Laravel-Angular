@@ -38,7 +38,7 @@ Route::post('users', [UserController::class, 'store']); // register user
 
 
 
-// Route::group(['middleware' => 'multi.auth:api,api-admins'], function () {
+Route::group(['middleware' => 'multi.auth:api,api-admins'], function () {
 Route::apiResource('users', UserController::class)->except(['store']);
 Route::apiResource('products', ProductController::class);
 Route::get('products/title/{title}', [ProductController::class, 'showByName']);
@@ -46,7 +46,7 @@ Route::get('products/{id} ', [ProductController::class, 'show']);
 
 Route::apiResource('carts', CartController::class);
 
-// });
+});
 
 
 
