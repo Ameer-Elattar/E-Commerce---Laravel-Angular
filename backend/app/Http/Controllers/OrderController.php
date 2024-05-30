@@ -8,6 +8,8 @@ use App\Models\OrderProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class OrderController extends Controller
 {
@@ -28,7 +30,7 @@ class OrderController extends Controller
     {
         DB::beginTransaction();
         try {
-            $Order = Order::create($request->all());
+            $Order = Order::create(['user_id' => Auth::guard('api')->id()]);
             foreach ($request->all()['products'] as $products) {
             
                 $Product = Product::findOrFail($products['product_id']);
