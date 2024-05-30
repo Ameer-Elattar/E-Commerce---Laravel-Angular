@@ -88,7 +88,7 @@
       <div class="h-auto border border-2 border-dark p-3">
         <h5>Order Summary</h5>
         <div class="my-3">Total: {{ total | currency }}</div>
-        <button type="button" class="btn btn-outline-dark">Checkout</button>
+        <button type="button" (click)="createOrder()" class="btn btn-outline-dark">Checkout</button>
       </div>
     </div>
   </div>

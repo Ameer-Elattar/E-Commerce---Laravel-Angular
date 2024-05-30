@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { OrderService } from '../../services/order.service';
 import { CommonModule } from '@angular/common';
 import { Cart } from '../../models/cart';
 import { Subscription } from 'rxjs';
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit, OnDestroy {
     return this.total;
   }
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService,private OrderService: OrderService) {}
   ngOnInit(): void {
     const ALLCartsSub = this.cartService.getAllCartItems().subscribe(
       (data) => {
@@ -82,5 +83,10 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.cartsubscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  createOrder(){
+    console.log("hi");
+    this.OrderService.createOrder().subscribe((data) => {})
   }
 }

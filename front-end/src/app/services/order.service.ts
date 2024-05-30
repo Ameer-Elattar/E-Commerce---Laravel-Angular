@@ -29,6 +29,9 @@ export class OrderService {
   done(id :number){
     return this.http.get(`${this.baseUrl}/orders/${id}/done`);
   }
+  createOrder(){
+    return this.http.post(`${this.baseUrl}/orders`,{});
+  }
 
 }
 
