@@ -85,24 +85,28 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     }
   }
   addToCart(product_id: number) {
-    if (this.isCartItemExisting(product_id)) {
+    const userString = localStorage.getItem('currentUser');
+    const user_id = userString ? JSON.parse(userString).id : null;
+    if (this.isCartItemExisting(product_id,user_id)) {
       console.log('cart item already exists');
       return;
     }
-    const cartItem = this.createCartItem(product_id);
+    const cartItem = this.createCartItem(product_id,user_id);
     this.addCartItemToBackend(cartItem);
   }
 
-  isCartItemExisting(product_id: number): boolean {
+  isCartItemExisting(product_id: number,user_id: number): boolean {
     return this.cartItems.some(
-      (obj) => obj.user_id === 1 && obj.product_id === product_id
+      (obj) => obj.user_id === user_id && obj.product_id === product_id
     );
   }
   // TODO: Send only the product ID after finishing backend authentication.
-  createCartItem(product_id: number): Cart {
+  createCartItem(product_id: number,user_id: number): Cart {
+   
+
     return {
       product_id,
-      user_id: 1,
+      user_id,
       quantity: 1,
       product: null,
       id: this.cartItems.length + 1,

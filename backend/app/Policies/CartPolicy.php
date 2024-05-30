@@ -60,7 +60,7 @@ class CartPolicy
     }
     public function FindAllUserCartItems(  $authUser, User $user)
     {
-            
+        
         return $authUser->id == $user->id || $authUser instanceof Admin;
     }
 

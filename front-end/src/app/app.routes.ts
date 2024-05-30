@@ -3,7 +3,6 @@ import { HomeComponent } from './homePage/home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 
-
 export const routes: Routes = [
   {
     path: 'home',
@@ -32,8 +31,8 @@ export const routes: Routes = [
   },
   {
     path: 'cart',
-    loadChildren: () =>
-      import('./cart/cart-route').then((m) => m.cartRoutes),
+    loadChildren: () => import('./cart/cart-route').then((m) => m.cartRoutes),
+    canActivate: [AuthGuard],
   },
   {
     path: 'order',
@@ -44,11 +43,10 @@ export const routes: Routes = [
     path: 'adminDashboard',
     loadChildren: () =>
       import('./dashboard/dashboard-route').then((m) => m.adminRoutes),
-   
   },
 
   {
     path: '**',
     component: NotFoundComponent,
-  }
+  },
 ];
