@@ -51,7 +51,6 @@ class CartController extends Controller
         return response()->json(new CartResource( $cart), 201);
     }
 
- 
 
 
     /**
@@ -60,11 +59,11 @@ class CartController extends Controller
     public function update(UpdateCartRequest $request, Cart $cart)
 
     {
+        $this->authorize('update',$cart);
          $stockValidation= $this->checkStock($request,$cart->product_id);
         if(!$stockValidation){
             return response()->json(['error' => 'The stock is Lowar than  cart quantity'],403 );
             }
-        $this->authorize('update',$cart);
         $cart->update($request->validated());
         return response()->json(new CartResource( $cart), 200);
 
@@ -102,12 +101,9 @@ class CartController extends Controller
             return response()->json(['error' => 'No cart items found for this user'], 404);
         }   
     }
-
-// Function to get all cart items for a user. 
-// This could be done in a user resource, but I've provided a route for it anyway.
+ 
 public function getAllCartItems(int $id)
     {
-     
         $user= User::findOrFail($id);
        $this->authorize('FindAllUserCartItems',$user) ;
         $cartItems = Cart::where('user_id', $id)->get();
