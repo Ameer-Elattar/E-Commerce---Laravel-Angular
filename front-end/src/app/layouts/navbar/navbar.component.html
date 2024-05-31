@@ -13,13 +13,12 @@
         class="rounded-circle"
         style="width: 40px; height: 40px"
       />
-      <span class="ms-2 fw-light fs-6 d-none d-lg-inline"  [ngClass]="
-      isNavbarTransparent
-        ? 'text-dark'
-        : 'text-light' "
-     *ngIf="currentUser">{{
-        currentUser.full_name
-      }}</span>
+      <span
+        class="ms-2 fw-light fs-6 d-none d-lg-inline"
+        [ngClass]="isNavbarTransparent ? 'text-dark' : 'text-light'"
+        *ngIf="currentUser"
+        >{{ currentUser.full_name }}</span
+      >
     </a>
 
     <button
@@ -88,7 +87,7 @@
           <a
             class="nav-link"
             [ngClass]="{ text: !isNavbarTransparent }"
-            href="#"
+            [routerLink]="['about']"
             >About</a
           >
         </li>
