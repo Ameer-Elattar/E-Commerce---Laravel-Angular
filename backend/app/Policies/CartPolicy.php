@@ -42,7 +42,7 @@ class CartPolicy
      */
     public function update($user, Cart $cart): bool
     {
-        dd("here");
+        
         return $user->id==$cart->user_id || $user instanceof Admin;    
     }
 
