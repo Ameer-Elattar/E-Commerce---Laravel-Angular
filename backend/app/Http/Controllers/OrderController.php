@@ -19,6 +19,7 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $this->authorize("viewAny", Order::class);
         return OrderResource::collection(Order::all());
     }
 
@@ -81,6 +82,7 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $Order = Order::find($id);
+        $this->authorize("view", $Order);
         if(!$Order){
             return response()->json(['message' => 'Order not found'], 404);
         }
@@ -98,6 +100,7 @@ class OrderController extends Controller
         if(!$Order){
             return response()->json(['message'=> 'Order not found'],404);
         }
+        $this->authorize("update", $Order);
         $Order ->update($request->all());
         return response()->json($Order,200);
     }
@@ -120,7 +123,7 @@ class OrderController extends Controller
         try{
                 
             $Order = Order::findOrFail($id);
-        
+            $this->authorize("update", $Order);
             if($Order->status != 'progress'){
                 throw new \Exception("Cant Cancel order");
             }
@@ -149,6 +152,7 @@ class OrderController extends Controller
     public function done(Request $request, string $id)
     {
         $Order = Order::find($id);
+        $this->authorize("done", $Order);
         if(!$Order || $Order->status != 'progress'){
             return response()->json(['message'=> 'Order Cant Be Done'],404);
         }
