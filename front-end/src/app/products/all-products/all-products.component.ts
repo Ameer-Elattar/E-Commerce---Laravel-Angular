@@ -102,7 +102,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       (obj) => obj.user_id === user_id && obj.product_id === product_id
     );
   }
-  // TODO: Send only the product ID after finishing backend authentication.
+  
   createCartItem(product_id: number, user_id: number): Cart {
     return {
       product_id,

@@ -17,7 +17,6 @@ export class CartComponent implements OnInit, OnDestroy {
   private cartsubscriptions: Subscription[] = [];
   total: number = 0;
   get totalAmount() {
-    this.total = 0;
     for (let order of this.cartItems) {
       if (order.product) {
         this.total += order.product.price * order.quantity;
@@ -26,7 +25,19 @@ export class CartComponent implements OnInit, OnDestroy {
     return this.total;
   }
 
-  constructor(private cartService: CartService,private OrderService: OrderService) {}
+  constructor(
+    private cartService: CartService,
+    private OrderService: OrderService
+  ) {}
+
+  updateTotal() {
+    this.total = this.cartItems.reduce((sum, item) => {
+      if (item.product) {
+        return (sum ?? 0) + item.product.price * item.quantity;
+      }
+      return sum;
+    }, 0);
+  }
   ngOnInit(): void {
     const ALLCartsSub = this.cartService.getAllCartItems().subscribe(
       (data) => {
@@ -56,20 +67,10 @@ export class CartComponent implements OnInit, OnDestroy {
   updateCartItemInBackend(cart: Cart) {
     const increaseCartQuantity = this.cartService
       .updateCart(cart)
-      .subscribe((data) => {
-        console.log(data);
-      });
+      .subscribe((data) => {});
     this.cartsubscriptions.push(increaseCartQuantity);
   }
 
-  updateTotal() {
-    this.total = this.cartItems.reduce((sum, item) => {
-      if (item.product) {
-        return (sum ?? 0) + item.product.price * item.quantity;
-      }
-      return sum;
-    }, 0);
-  }
   removeCartItem(id: number) {
     const removeCartItem = this.cartService
       .deleteCartItem(id)
@@ -85,9 +86,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartsubscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  createOrder(){
+  createOrder() {
     this.cartItems.length = 0;
 
-    this.OrderService.createOrder().subscribe((data) => {})
+    this.OrderService.createOrder().subscribe((data) => {});
   }
 }

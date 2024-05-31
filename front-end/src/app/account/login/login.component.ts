@@ -9,6 +9,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {}
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -40,8 +42,9 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe(
       (response) => {
         localStorage.setItem('token', response.access_token);
+        // Notifying navbar about cart Length
+        this.cartService.loginCase();
         // Redirect the user to the home page
-
         if (response.role === 'user') {
           this.router.navigate(['/home']);
         } else {
