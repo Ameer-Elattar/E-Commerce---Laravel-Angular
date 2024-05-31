@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './homePage/home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
+import { isAdminGuard } from './guards/is-admin.guard';
+import { isUserGuard } from './guards/is-user.guard';
 
 export const routes: Routes = [
   {
@@ -23,6 +25,7 @@ export const routes: Routes = [
     path: 'profile',
     loadChildren: () =>
       import('./profile/user.route').then((m) => m.userRoutes),
+    canActivate:[isUserGuard]
   },
   {
     path: 'account',
@@ -35,14 +38,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'order',
-    loadChildren: () =>
-      import('./orders/order-route').then((m) => m.orderRoutes),
-  },
-  {
     path: 'adminDashboard',
     loadChildren: () =>
       import('./dashboard/dashboard-route').then((m) => m.adminRoutes),
+    canActivate: [isAdminGuard],
   },
 
   {
