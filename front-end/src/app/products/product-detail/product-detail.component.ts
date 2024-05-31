@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,14 +15,14 @@ import Swal from 'sweetalert2';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product;
-  role: string | null = localStorage.getItem('role');
 
   defaultImageUrl: string =
     '../.././../assets/images/registration/sofa-7354949_1280.png';
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    protected authService:AuthService
   ) {
     this.product = {} as Product;
   }

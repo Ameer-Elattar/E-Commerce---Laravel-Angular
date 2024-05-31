@@ -10,6 +10,7 @@ import { faEye, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { SpinnerComponent } from '../../layouts/spinner/spinner.component';
 import { CartService } from '../../services/cart.service';
 import { Cart } from '../../models/cart';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-all-products',
@@ -35,11 +36,11 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   isLoading = true;
   private cartsubscriptions: Subscription[] = [];
   private productsSubscription: Subscription | undefined;
-  role: string | null = localStorage.getItem('role');
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    protected authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -88,23 +89,21 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   addToCart(product_id: number) {
     const userString = localStorage.getItem('currentUser');
     const user_id = userString ? JSON.parse(userString).id : null;
-    if (this.isCartItemExisting(product_id,user_id)) {
+    if (this.isCartItemExisting(product_id, user_id)) {
       console.log('cart item already exists');
       return;
     }
-    const cartItem = this.createCartItem(product_id,user_id);
+    const cartItem = this.createCartItem(product_id, user_id);
     this.addCartItemToBackend(cartItem);
   }
 
-  isCartItemExisting(product_id: number,user_id: number): boolean {
+  isCartItemExisting(product_id: number, user_id: number): boolean {
     return this.cartItems.some(
       (obj) => obj.user_id === user_id && obj.product_id === product_id
     );
   }
   // TODO: Send only the product ID after finishing backend authentication.
-  createCartItem(product_id: number,user_id: number): Cart {
-   
-
+  createCartItem(product_id: number, user_id: number): Cart {
     return {
       product_id,
       user_id,

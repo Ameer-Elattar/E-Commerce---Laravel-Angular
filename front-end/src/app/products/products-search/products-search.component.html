@@ -23,7 +23,7 @@
           <strong>Price:</strong>
           <span class="price">{{ product.price | currency }}</span>
         </p>
-        @if(role != 'admin'){
+        @if(authService.role != 'admin'){
         <button
           class="btn btn-outline-dark my-5"
           (click)="addToCart(product.id)"
