@@ -96,6 +96,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->authorize("isAdmin", Order::class);
         $Order = Order::find($id);
         if(!$Order){
             return response()->json(['message'=> 'Order not found'],404);
@@ -110,6 +111,7 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize("isAdmin", Order::class);
         $Order = Order::find($id);
         if(!$Order){
             return response()->json(['message'=> 'Order not found'],404);

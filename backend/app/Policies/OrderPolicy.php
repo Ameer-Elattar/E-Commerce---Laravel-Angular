@@ -15,6 +15,10 @@ class OrderPolicy
     {
         return $user instanceof Admin; ; 
     }
+    public function isAdmin($user): bool
+    {
+        return $user instanceof Admin; ; 
+    }
 
     /**
      * Determine whether the user can view the model.
