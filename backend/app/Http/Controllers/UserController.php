@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index( Request $request)
     {
-        // $this->authorize('viewAny',User::class);
+        $this->authorize('viewAny',User::class);
         $users= User::all();
         return response()->json($users,200);
 

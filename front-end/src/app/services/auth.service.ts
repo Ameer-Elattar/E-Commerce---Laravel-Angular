@@ -9,7 +9,8 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api/auth';
   private currentUserSubject: BehaviorSubject<any>;
-  role:string | null = localStorage.getItem('role');
+  role: string | null = localStorage.getItem('role');
+  currentUser: any = JSON.parse(localStorage['currentUser']);
   constructor(private http: HttpClient) {
     const storedUser = localStorage.getItem('currentUser');
     this.currentUserSubject = new BehaviorSubject<any>(
@@ -25,7 +26,7 @@ export class AuthService {
           this.currentUserSubject.next(response.user);
           localStorage.setItem('currentUser', JSON.stringify(response.user));
           localStorage.setItem('token', response.access_token);
-          localStorage.setItem('role',response.role);
+          localStorage.setItem('role', response.role);
           this.role = response.role;
         })
       );

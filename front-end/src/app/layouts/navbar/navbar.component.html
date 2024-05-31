@@ -6,13 +6,13 @@
   }"
 >
   <div class="container-fluid">
-    @if(currentUser){
+    @if(authService.currentUser){
     <a
       class="navbar-brand"
       [routerLink]="authService.role != 'admin' ? 'profile' : 'adminDashboard/details'"
     >
       <img
-        [src]="currentUser.image_url"
+        [src]="authService.currentUser.image_url"
         alt="Brand"
         class="rounded-circle"
         style="width: 40px; height: 40px"
@@ -20,8 +20,8 @@
       <span
         class="ms-2 fw-light fs-6 d-none d-lg-inline"
         [ngClass]="isNavbarTransparent ? 'text-dark' : 'text-light'"
-        *ngIf="currentUser"
-        >{{ currentUser.full_name || currentUser.name }}</span
+        *ngIf="authService.currentUser"
+        >{{ authService.currentUser.full_name || authService.currentUser.name }}</span
       >
     </a>
     }
@@ -100,7 +100,7 @@
           >
         </li>
 
-        <li *ngIf="!currentUser" class="nav-item">
+        <li *ngIf="!authService.currentUser" class="nav-item">
           <a
             class="nav-link"
             routerLink="account/login"
@@ -108,7 +108,7 @@
             >Login</a
           >
         </li>
-        <li *ngIf="currentUser" class="nav-item" style="cursor: pointer;">
+        <li *ngIf="authService.currentUser" class="nav-item" style="cursor: pointer;">
           <a
             class="nav-link"
             (click)="logout()"
@@ -116,7 +116,7 @@
             >Logout</a
           >
         </li>
-        @if(currentUser){ @if(authService.role !== 'admin'){
+        @if(authService.currentUser){ @if(authService.role !== 'admin'){
         <li class="nav-item">
           <a
             class="nav-link"

@@ -25,7 +25,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isNavbarTransparent: boolean = true;
   faCartPlus = faCartPlus;
   searchQuery: string = '';
-  currentUser: any;
   cartItems: number = 0;
   private cartsubscriptions!: Subscription;
   constructor(
@@ -34,9 +33,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private cartService: CartService
   ) {}
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe((user) => {
-      this.currentUser = user;
-    });
     this.getItemsCartNumber();
   }
 

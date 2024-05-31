@@ -11,13 +11,6 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './user-info.component.css',
 })
 export class UserInfoComponent {
-  currentUser: any;
+  constructor(protected authService: AuthService) {}
 
-  constructor(private router: Router, private authService: AuthService) {}
-  ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe((user) => {
-      this.currentUser = user;
-      console.log(this.currentUser.image_url)
-    });
-  }
 }

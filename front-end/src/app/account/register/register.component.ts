@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,8 @@ import { UserService } from '../../services/user.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,OnDestroy {
+  sub:Subscription | null = null;
   registerForm = this.fb.group({
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
@@ -27,13 +29,16 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     protected router: Router
   ) {}
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe()
+  }
 
   ngOnInit() {}
 
   onSubmit() {
     if (!this.registerForm.valid) {
       this.registerForm.markAllAsTouched();
-      // return;
+      return;
     }
     let { firstName, lastName, email, password, gender } =
       this.registerForm.value;
@@ -43,11 +48,9 @@ export class RegisterComponent implements OnInit {
       password,
       gender,
     };
-    this.userService.createUser(body).subscribe((user) => {
-      console.log(user);
+    this.sub=this.userService.createUser(body).subscribe((user) => {
       this.router.navigateByUrl('/login');
     });
-    console.log(body);
   }
 
   get firstName() {

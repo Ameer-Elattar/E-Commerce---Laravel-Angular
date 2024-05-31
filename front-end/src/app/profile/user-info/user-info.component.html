@@ -1,7 +1,11 @@
 <section class="user-profile mt-5">
   <div class="sidebar">
-    <img [src]="currentUser.image_url" alt="User Image" class="user-image"/>
-    <h1 class="user-name">{{currentUser.full_name}}</h1>
+    <img
+      [src]="authService.currentUser.image_url"
+      alt="User Image"
+      class="user-image"
+    />
+    <h1 class="user-name">{{ authService.currentUser.full_name }}</h1>
   </div>
   <div class="details">
     <div class="edit-button">
@@ -9,8 +13,8 @@
     </div>
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title">{{currentUser.email}}</h3>
-        <h6 class="card-subtitle">{{currentUser.gender}}</h6>
+        <h3 class="card-title">{{ authService.currentUser.email }}</h3>
+        <h6 class="card-subtitle">{{ authService.currentUser.gender }}</h6>
       </div>
     </div>
   </div>
