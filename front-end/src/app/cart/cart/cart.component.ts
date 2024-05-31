@@ -42,12 +42,14 @@ export class CartComponent implements OnInit, OnDestroy {
     const ALLCartsSub = this.cartService.getAllCartItems().subscribe(
       (data) => {
         this.cartItems = data.data;
+        this.updateTotal();
       },
       (error) => {
         console.error('Error fetching cart items', error);
       }
     );
     this.cartsubscriptions.push(ALLCartsSub);
+    
   }
 
   increaseQuantity(cart: Cart) {
