@@ -16,14 +16,6 @@ export class CartComponent implements OnInit, OnDestroy {
   cartItems: Cart[] = [];
   private cartsubscriptions: Subscription[] = [];
   total: number = 0;
-  get totalAmount() {
-    for (let order of this.cartItems) {
-      if (order.product) {
-        this.total += order.product.price * order.quantity;
-      }
-    }
-    return this.total;
-  }
 
   constructor(
     private cartService: CartService,
@@ -42,6 +34,7 @@ export class CartComponent implements OnInit, OnDestroy {
     const ALLCartsSub = this.cartService.getAllCartItems().subscribe(
       (data) => {
         this.cartItems = data.data;
+        this.updateTotal();
       },
       (error) => {
         console.error('Error fetching cart items', error);
