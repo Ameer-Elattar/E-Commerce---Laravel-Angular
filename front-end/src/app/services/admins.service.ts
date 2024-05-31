@@ -25,8 +25,8 @@ export class AdminsService {
   }
 
   updateAdmin(id: number, admin: FormData): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.put(url, admin);
+    const url = `${this.apiUrl}/${id}?_method=PATCH`;
+    return this.http.post(url, admin);
   }
 
   deleteAdmin(id: number): Observable<any> {

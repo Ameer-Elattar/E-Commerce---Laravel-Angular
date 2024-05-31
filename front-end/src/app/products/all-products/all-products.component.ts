@@ -10,6 +10,7 @@ import { faEye, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { SpinnerComponent } from '../../layouts/spinner/spinner.component';
 import { CartService } from '../../services/cart.service';
 import { Cart } from '../../models/cart';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-all-products',
@@ -38,7 +39,8 @@ export class AllProductsComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    protected authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -100,6 +102,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       (obj) => obj.user_id === user_id && obj.product_id === product_id
     );
   }
+  // TODO: Send only the product ID after finishing backend authentication.
   createCartItem(product_id: number, user_id: number): Cart {
     return {
       product_id,

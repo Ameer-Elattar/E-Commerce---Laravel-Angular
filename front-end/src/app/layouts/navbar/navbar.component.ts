@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -23,12 +30,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private cartsubscriptions!: Subscription;
   constructor(
     private router: Router,
-    private authService: AuthService,
+    protected authService: AuthService,
     private cartService: CartService
   ) {}
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((user) => {
       this.currentUser = user;
+      console.log(this.currentUser);
     });
     this.getItemsCartNumber();
   }
@@ -42,6 +50,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   logout() {
     this.authService.logout();
+    this.router.navigateByUrl('home');
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {

@@ -24,14 +24,15 @@ class UpdateAdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
+                "unique:users",
                 Rule::unique('admins')->ignore($this->route('admin'))
             ],
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

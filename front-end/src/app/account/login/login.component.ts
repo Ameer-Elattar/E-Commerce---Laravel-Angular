@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule,RouterLink],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -41,7 +41,12 @@ export class LoginComponent {
       (response) => {
         localStorage.setItem('token', response.access_token);
         // Redirect the user to the home page
-        this.router.navigate(['/home']);
+
+        if (response.role === 'user') {
+          this.router.navigate(['/home']);
+        } else {
+          this.router.navigate(['/adminDashboard']);
+        }
       },
       (error) => {
         console.error('Login failed', error);

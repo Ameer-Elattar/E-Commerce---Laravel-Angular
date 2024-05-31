@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cart } from '../models/cart';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, of } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,17 @@ export class CartService {
   public cartArray: Cart[] = [];
   public cartLength: number = 0;
   cartLengthSubject: Subject<any> = new Subject();
-  constructor(public http: HttpClient) {
-    this.getAllCartItems().subscribe((data) => {
-      this.cartArray = data.data;
-      this.cartLength = this.cartArray.length;
-      this.cartLengthSubject.next(this.cartLength);
-    });
+
+  constructor(public http: HttpClient, protected authService: AuthService) {
+    if (authService.role) {
+      if (authService.role != 'admin') {
+        this.getAllCartItems().subscribe((data) => {
+          this.cartArray = data.data;
+          this.cartLength = this.cartArray.length;
+          this.cartLengthSubject.next(this.cartLength);
+        });
+      }
+    }
   }
   getAllCartItems() {
     return this.http.get<any>(this.path);

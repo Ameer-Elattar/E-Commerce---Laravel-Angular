@@ -46,6 +46,15 @@ Route::get('products/{id} ', [ProductController::class, 'show']);
 
 Route::apiResource('carts', CartController::class);
 
+Route::get('/orders/user', [OrderController::class, 'userOrder']);
+Route::apiResource('orders', OrderController::class);
+Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
+Route::get('/orders/{id}/done', [OrderController::class, 'done']);
+
+Route::delete('/users/{id}/cart', [CartController::class, 'destroyAllCartItems']);
+Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);
+Route::apiResource('admins', AdminController::class);
+
 });
 
 
@@ -56,17 +65,3 @@ Route::apiResource('carts', CartController::class);
 
 
 
-
-
-Route::delete('/users/{id}/cart', [CartController::class, 'destroyAllCartItems']);
-Route::get('/users/{id}/cart', [CartController::class, 'getAllCartItems']);
-
-
-
-
-Route::apiResource('orders', OrderController::class);
-Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel']);
-Route::get('/orders/{id}/done', [OrderController::class, 'done']);
-// Route::get('/orders', [OrderController::class, 'index']);
-
-Route::apiResource('admins', AdminController::class);

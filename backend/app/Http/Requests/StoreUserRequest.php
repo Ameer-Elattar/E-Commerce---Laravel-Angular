@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             "full_name"=>["required","string","min:4"],
             "password"=>["required","string",Password::min(8)->mixedCase()],
-            "email"=>["required","string","email",Rule::unique('users')->ignore($this->user->id??null)],
+            "email"=>["required","email","string","unique:admins","unique:users"],
             "gender"=>["required",Rule::in(["male","female"])],
             "image"=>["sometimes","image"]
 
