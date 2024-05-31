@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {OrderService} from '../services/order.service';
 import { Order } from '../models/order';
-
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 
@@ -17,17 +17,24 @@ import { CommonModule } from '@angular/common';
 export class OrdersComponent implements OnInit{
 
   constructor(public OrderService: OrderService ,public router:Router) { }
-
+  private ordersubscriptions: Subscription[] = [];
   orders : Order[]=this.OrderService.orders
   ngOnInit() {
-    this.OrderService.getUserOrders().subscribe(data => {
+    const ordersubscriptions =this.OrderService.getUserOrders().subscribe(data => {
       this.orders=data.data
     });
+
+    this.ordersubscriptions.push(ordersubscriptions);
   }
 
   cancel(id : number,i :number) {
-    this.OrderService.cancel(id).subscribe(data=>console.log(data));
-    this.orders[i].status = 'cancel'
+    const cancelsubscriptions = this.OrderService.cancel(id).subscribe(data=>console.log(data));
+    this.orders[i].status = 'cancel';
+    this.ordersubscriptions.push(cancelsubscriptions);
+  }
+
+  ngOnDestroy(){
+    this.ordersubscriptions.forEach((sub) => sub.unsubscribe());
   }
 
 }

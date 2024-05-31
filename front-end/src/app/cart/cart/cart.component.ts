@@ -81,13 +81,17 @@ export class CartComponent implements OnInit, OnDestroy {
     this.updateTotal();
   }
 
-  ngOnDestroy() {
-    this.cartsubscriptions.forEach((sub) => sub.unsubscribe());
-  }
+
 
   createOrder(){
+    this.cartItems.forEach((itemm) =>{this.cartService.removeItemfromCart()
+    });
     this.cartItems.length = 0;
+    const orderSub = this.OrderService.createOrder().subscribe()
+    this.cartsubscriptions.push(orderSub);
+  }
 
-    this.OrderService.createOrder().subscribe((data) => {})
+    ngOnDestroy() {
+    this.cartsubscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

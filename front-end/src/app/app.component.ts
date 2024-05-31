@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'front-end';
+  title = 'FurniZone';
   showNavbar: boolean = true;
   private routerSubscription!: Subscription;
 
