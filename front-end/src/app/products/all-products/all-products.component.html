@@ -44,7 +44,7 @@
               >
                 <fa-icon [icon]="faEye" class="icon p-5"></fa-icon>
               </a>
-              @if(role !="admin"){
+              @if(authService.role !="admin"){
               <a
                 [routerLink]="[]"
                 (click)="addToCart(product.id)"
