@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Policies\CartPolicy;
+use App\Policies\OrderPolicy;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => CartPolicy::class,
+        Order::class => OrderPolicy::class,
     ];
 
     /**
