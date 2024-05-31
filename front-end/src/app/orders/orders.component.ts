@@ -21,7 +21,8 @@ export class OrdersComponent implements OnInit{
   orders : Order[]=this.OrderService.orders
   ngOnInit() {
     this.OrderService.getUserOrders().subscribe(data => {
-      this.OrderService.orders.push(... data.data)});
+      this.orders=data.data
+    });
   }
 
   cancel(id : number,i :number) {
