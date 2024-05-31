@@ -14,5 +14,24 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'front-end';
+  title = 'FurniZone';
+  showNavbar: boolean = true;
+  private routerSubscription!: Subscription;
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showNavbar = !event.urlAfterRedirects.includes('/adminDashboard');
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+  
 }
