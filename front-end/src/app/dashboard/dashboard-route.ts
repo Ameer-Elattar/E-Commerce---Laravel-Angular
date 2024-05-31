@@ -8,9 +8,7 @@ import { AddProductFormComponent } from './products/add-product-form/add-product
 import { EditProductFormComponent } from './products/edit-product-form/edit-product-form.component';
 import { ShowProductComponent } from './products/show-product/show-product.component';
 import { UserOrdersComponent } from './user-orders/user-orders.component';
-
-
-
+import { AdminDetailsComponent } from './admins/admin-details/admin-details.component';
 
 export const adminRoutes: Routes = [
   {
@@ -19,13 +17,16 @@ export const adminRoutes: Routes = [
     children: [
       { path: 'admins', component: AdminsComponent },
       { path: 'admins/add-admin', component: AddAdminFormComponent },
+      { path: 'details', component: AdminDetailsComponent },
       { path: 'users', component: UsersComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'products/add-product', component: AddProductFormComponent },
-      { path: 'products/edit-product/:id', component: EditProductFormComponent },
+      {
+        path: 'products/edit-product/:id',
+        component: EditProductFormComponent,
+      },
       { path: 'products/:id', component: ShowProductComponent },
       { path: 'orders', component: UserOrdersComponent },
-      
     ],
   },
 ];
