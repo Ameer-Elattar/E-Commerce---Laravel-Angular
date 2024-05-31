@@ -19,8 +19,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
         return OrderResource::collection(Order::all());
+    }
+
+    public function userOrder()
+    {
+        $user = User::find(Auth::guard('api')->id());
+        return OrderResource::collection($user->orders);
     }
 
 
