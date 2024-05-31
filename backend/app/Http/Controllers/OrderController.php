@@ -26,7 +26,7 @@ class OrderController extends Controller
     public function userOrder()
     {
         $user = User::find(Auth::guard('api')->id());
-        return OrderResource::collection($user->orders);
+        return OrderResource::collection($user->orders()->where('status', '!=', 'cancel')->get());
     }
 
 
