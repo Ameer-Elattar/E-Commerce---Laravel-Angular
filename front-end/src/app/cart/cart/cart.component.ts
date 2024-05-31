@@ -86,7 +86,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   createOrder(){
-    console.log("hi");
+    this.cartItems.length = 0;
+
     this.OrderService.createOrder().subscribe((data) => {})
   }
 }
