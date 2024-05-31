@@ -26,12 +26,13 @@ class UpdateAdminRequest extends FormRequest
         return [
             //
             'name' => 'required|string|max:255',
+            'password' => 'required|string|min:6',
             'email' => [
                 'required',
                 'email',
                 Rule::unique('admins')->ignore($this->route('admin'))
             ],
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }
