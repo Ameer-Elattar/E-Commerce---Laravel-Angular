@@ -1,12 +1,6 @@
 <div class="container py-5">
   <div class="d-flex align-items-center my-3">
-    <input
-      title="check"
-      type="checkbox"
-      name="check-all"
-      class="checkmark form-check-input"
-      id="check-all"
-    />
+
     <label for="check-all" class="m-0 mx-3 display-6">Shopping Cart</label>
   </div>
   @if (cartItems.length > 0) {
@@ -17,13 +11,7 @@
         class="d-flex my-2 p-3 border-2 border-dark border-bottom align-items-center"
       >
         <div class="d-flex align-items-center gap-3">
-          <input
-            name="order-{{ $index }}"
-            type="checkbox"
-            title="check"
-            class="checkmark form-check-input"
-            id="order-{{ $index }}"
-          />
+          
           <label class="form-check-label d-none" for="order-{{ $index }}"
             >check</label
           >
