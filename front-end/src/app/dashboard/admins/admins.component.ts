@@ -3,6 +3,8 @@ import { Admin } from '../../models/admin';
 import { AdminsService } from '../../services/admins.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-admins',
@@ -29,11 +31,26 @@ export class AdminsComponent implements OnInit {
 
   deleteAdmin(id: number | undefined) {
     if (id !== undefined) {
-      if (confirm('Are you sure you want to delete this admin?')) {
-        this.adminService.deleteAdmin(id).subscribe(() => {
-          this.loadAdmins();
-        });
-      }
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.adminService.deleteAdmin(id).subscribe(() => {
+            Swal.fire(
+              'Deleted!',
+              'The admin has been deleted.',
+              'success'
+            );
+            this.loadAdmins();
+          });
+        }
+      });
     } else {
       console.error('Admin ID is undefined.');
     }

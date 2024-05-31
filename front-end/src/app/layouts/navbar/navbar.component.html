@@ -9,7 +9,7 @@
     @if(currentUser){
     <a
       class="navbar-brand"
-      [routerLink]="role != 'admin' ? 'profile' : 'adminDashboard/details'"
+      [routerLink]="authService.role != 'admin' ? 'profile' : 'adminDashboard/details'"
     >
       <img
         [src]="currentUser.image_url"
@@ -80,7 +80,7 @@
             >Furniture</a
           >
         </li>
-        @if(role == 'admin'){
+        @if(authService.role == 'admin'){
         <li class="nav-item">
           <a
             class="nav-link"
@@ -116,7 +116,7 @@
             >Logout</a
           >
         </li>
-        @if(currentUser){ @if(role !== 'admin'){
+        @if(currentUser){ @if(authService.role !== 'admin'){
         <li class="nav-item">
           <a
             class="nav-link"

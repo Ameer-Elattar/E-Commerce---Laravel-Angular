@@ -10,7 +10,7 @@
     <h4>{{ product.title }}</h4>
     <p class="text-muted">{{ product.description }}</p>
     <p class="fw-bold">Price: ${{ product.price }}</p>
-    @if(role != 'admin'){
+    @if(authService.role != 'admin'){
     <button class="btn btn-outline-dark" (click)="addToCart()">
       Add To Cart
     </button>
