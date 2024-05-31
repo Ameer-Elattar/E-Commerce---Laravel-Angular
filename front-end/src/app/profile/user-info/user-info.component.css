@@ -5,7 +5,7 @@ img{
 }
 .user-profile {
   display: flex;
-  height: calc(90vh - 100px); 
+  height: calc(65vh - 100px); 
 }
 
 .sidebar {
