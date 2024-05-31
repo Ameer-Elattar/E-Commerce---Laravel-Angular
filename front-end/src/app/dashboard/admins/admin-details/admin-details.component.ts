@@ -33,7 +33,7 @@ export class AdminDetailsComponent implements OnInit {
   }
 
   editAccount() {
-    this.router.navigate(['/edit-account', this.admin.id]);
+    this.router.navigate(['/adminDashboard/details/edit', this.admin.id]);
   }
 
   deleteAccount() {
