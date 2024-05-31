@@ -20,7 +20,7 @@ export class OrdersComponent implements OnInit{
 
   orders : Order[]=this.OrderService.orders
   ngOnInit() {
-    this.OrderService.getOrders().subscribe(data => {
+    this.OrderService.getUserOrders().subscribe(data => {
       this.OrderService.orders.push(... data.data)});
   }
 
