@@ -11,12 +11,18 @@ export class CartService {
   public cartArray: Cart[] = [];
   public cartLength: number = 0;
   cartLengthSubject: Subject<any> = new Subject();
+  role: string | null = localStorage.getItem('role');
+
   constructor(public http: HttpClient) {
-    this.getAllCartItems().subscribe((data) => {
-      this.cartArray = data.data;
-      this.cartLength = this.cartArray.length;
-      this.cartLengthSubject.next(this.cartLength);
-    });
+    if (this.role) {
+      if (this.role != 'admin') {
+        this.getAllCartItems().subscribe((data) => {
+          this.cartArray = data.data;
+          this.cartLength = this.cartArray.length;
+          this.cartLengthSubject.next(this.cartLength);
+        });
+      }
+    }
   }
   getAllCartItems() {
     return this.http.get<any>(this.path);

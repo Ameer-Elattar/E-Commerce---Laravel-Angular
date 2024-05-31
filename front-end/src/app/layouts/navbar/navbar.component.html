@@ -6,21 +6,25 @@
   }"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="profile">
+    @if(currentUser){
+    <a
+      class="navbar-brand"
+      [routerLink]="role != 'admin' ? 'profile' : 'adminDashboard/details'"
+    >
       <img
-        src="./assets/images/customer_img_1.jpg"
+        [src]="currentUser.image_url"
         alt="Brand"
         class="rounded-circle"
         style="width: 40px; height: 40px"
       />
-      <span class="ms-2 fw-light fs-6 d-none d-lg-inline"  [ngClass]="
-      isNavbarTransparent
-        ? 'text-dark'
-        : 'text-light' "
-     *ngIf="currentUser">{{
-        currentUser.full_name
-      }}</span>
+      <span
+        class="ms-2 fw-light fs-6 d-none d-lg-inline"
+        [ngClass]="isNavbarTransparent ? 'text-dark' : 'text-light'"
+        *ngIf="currentUser"
+        >{{ currentUser.full_name || currentUser.name }}</span
+      >
     </a>
+    }
 
     <button
       class="navbar-toggler"
@@ -38,7 +42,7 @@
       <input
         class="form-control me-2"
         type="search"
-        placeholder="Search"
+        placeholder="Search for product"
         [(ngModel)]="searchQuery"
         name="searchQuery"
         required
@@ -76,14 +80,17 @@
             >Furniture</a
           >
         </li>
+        @if(role == 'admin'){
         <li class="nav-item">
           <a
             class="nav-link"
             [ngClass]="{ text: !isNavbarTransparent }"
-            href="#"
-            >Contact</a
+            routerLink="adminDashboard"
+            >Dashboard</a
           >
         </li>
+        }
+
         <li class="nav-item">
           <a
             class="nav-link"
@@ -109,6 +116,7 @@
             >Logout</a
           >
         </li>
+        @if(currentUser){ @if(role !== 'admin'){
         <li class="nav-item">
           <a
             class="nav-link"
@@ -123,6 +131,7 @@
             }
           </a>
         </li>
+        } }
       </ul>
     </div>
   </div>

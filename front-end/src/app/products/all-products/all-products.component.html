@@ -44,6 +44,7 @@
               >
                 <fa-icon [icon]="faEye" class="icon p-5"></fa-icon>
               </a>
+              @if(role !="admin"){
               <a
                 [routerLink]="[]"
                 (click)="addToCart(product.id)"
@@ -51,6 +52,7 @@
               >
                 <fa-icon [icon]="faCartPlus" class="icon col-2"></fa-icon>
               </a>
+              }
             </div>
           </div>
         </div>

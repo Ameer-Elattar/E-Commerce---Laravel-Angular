@@ -35,6 +35,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   isLoading = true;
   private cartsubscriptions: Subscription[] = [];
   private productsSubscription: Subscription | undefined;
+  role: string | null = localStorage.getItem('role');
 
   constructor(
     private productService: ProductService,

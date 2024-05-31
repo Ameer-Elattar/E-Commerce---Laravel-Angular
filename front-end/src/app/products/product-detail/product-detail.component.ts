@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product;
+  role: string | null = localStorage.getItem('role');
 
   defaultImageUrl: string =
     '../.././../assets/images/registration/sofa-7354949_1280.png';

@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   currentUser: any;
   cartItems: number = 0;
+  role: string | null = localStorage.getItem('role');
   private cartsubscriptions!: Subscription;
   constructor(
     private router: Router,
@@ -42,6 +43,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       });
   }
   logout() {
+    
     this.authService.logout();
   }
   @HostListener('window:scroll', [])

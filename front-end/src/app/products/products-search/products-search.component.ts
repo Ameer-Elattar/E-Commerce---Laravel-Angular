@@ -30,6 +30,7 @@ import { Cart } from '../../models/cart';
     private routeSubscription: Subscription | null = null;
     private productSubscription: Subscription | null = null;
     private cartsubscriptions: Subscription[] = [];
+    role: string | null = localStorage.getItem('role');
 
     
   constructor(private route: ActivatedRoute, private productService: ProductService ,private cartService: CartService) {}
