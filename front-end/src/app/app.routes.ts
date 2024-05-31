@@ -4,6 +4,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { isAdminGuard } from './guards/is-admin.guard';
 import { isUserGuard } from './guards/is-user.guard';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,10 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'about',
+    component: AboutComponent,
+  },
+  {
     path: 'products',
     loadChildren: () =>
       import('./products/product.route').then((m) => m.productroutes),
@@ -25,7 +30,7 @@ export const routes: Routes = [
     path: 'profile',
     loadChildren: () =>
       import('./profile/user.route').then((m) => m.userRoutes),
-    canActivate:[isUserGuard]
+    canActivate: [isUserGuard],
   },
   {
     path: 'account',
